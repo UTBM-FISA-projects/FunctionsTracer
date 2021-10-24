@@ -1,0 +1,11 @@
+# JetBrains
+.idea
+
+# vscode
+.vscode
+
+# Builds
+out
+
+# Documentation
+doc
