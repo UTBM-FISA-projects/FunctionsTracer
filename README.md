@@ -36,3 +36,6 @@ Traceur graphique de fonction.
 ## Groupe
 Kilian GOETZ  
 Valentin DOREAU
+
+>L’objectif est de saisir via une interface graphique simple des fonctions de type polynôme via l’utilisateur et ensuite de tracer la fonction correspondante. Le programme permet de choisir le nombre de monômes, leurs degrés et leurs coefficients respectifs. Une fois le polynôme saisi le programme vérifie la syntaxe et trace la courbe correspondante pour un intervalle donné. On doit pouvoir via l’interface sauver et charger des polynômes et leurs tracés.
+
