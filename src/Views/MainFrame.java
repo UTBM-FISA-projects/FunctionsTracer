@@ -5,37 +5,35 @@ import Views.MenuBar.MenuBar;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame{
-
-    private final Image img;
-    private final JPanel mainPanel;
-
+public class MainFrame extends JFrame {
     public MainFrame() {
-
         super("Functions Tracer");
 
-        img = new ImageIcon("resources/logoNoir.png").getImage();
-        setIconImage(img);
+        // window
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(640,360));
+        setIconImage(new ImageIcon("resources/logoNoir.png").getImage());
+        setMinimumSize(new Dimension(640, 360));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // main panel
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+
+        // expression list
         ExpressionList expressionList = new ExpressionList();
-
         JScrollPane scrollPane = new JScrollPane(
-                expressionList,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+            expressionList,
+            ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
         );
-        scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        scrollPane.setBorder(null);
-        //scrollPane.setPreferredSize(this.getSize()); //TODO redimensionner JScrollPane
-        mainPanel = new JPanel();
-        mainPanel.add(scrollPane);
-        mainPanel.add(new Canvas());
-        this.setContentPane(mainPanel);;
-        setJMenuBar(new MenuBar(expressionList));
-        setVisible(true);
+        mainPanel.add(scrollPane, BorderLayout.LINE_START);
 
+        // graph
+        Graph graph = new Graph(-10, 10, -10, 10);
+        mainPanel.add(graph, BorderLayout.CENTER);
+
+        this.setContentPane(mainPanel);
+        setJMenuBar(new MenuBar(expressionList));
     }
 
 }
