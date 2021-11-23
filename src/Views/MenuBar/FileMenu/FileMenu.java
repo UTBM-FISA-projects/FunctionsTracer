@@ -4,12 +4,11 @@ import Views.ExpressionList;
 
 import javax.swing.*;
 
-public class FileMenu extends JMenu{
+public class FileMenu extends JMenu {
 
-    public FileMenu(ExpressionList expressionList){
+    public FileMenu(ExpressionList expressionList) {
         super("Fichier");
-        add(new MenuItemSaveAs(expressionList));
-        add(new MenuItemSave());
+        add(new FileMenuExport(expressionList));
         add(new MenuItemOpen());
     }
 }

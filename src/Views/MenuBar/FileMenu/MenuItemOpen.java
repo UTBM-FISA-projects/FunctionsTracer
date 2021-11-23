@@ -6,14 +6,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuItemOpen extends JMenuItem implements ActionListener{
+public class MenuItemOpen extends JMenuItem implements ActionListener {
 
     private Image img;
 
-    public MenuItemOpen(){
+    public MenuItemOpen() {
         super("Ouvrir");
         addActionListener(this);
-
     }
 
     @Override

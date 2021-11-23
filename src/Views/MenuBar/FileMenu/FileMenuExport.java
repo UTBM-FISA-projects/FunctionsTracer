@@ -12,48 +12,43 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- *
  * Représente le sous-menu enregistrer-sous
  *
  * @author Kilian GOËTZ
  */
-
-public class MenuItemSaveAs extends JMenuItem implements ActionListener {
+public class FileMenuExport extends JMenuItem implements ActionListener {
 
     private Image img;
     private ExpressionList expressionList;
 
     /**
-     *
      * Créer le sous-menu enregistrer-sous
      *
-     * @author Kilian GOËTZ
      * @param expressionList
+     * @author Kilian GOËTZ
      */
-
-    public MenuItemSaveAs(ExpressionList expressionList){
-        super("Enregistrer-sous");
+    public FileMenuExport(ExpressionList expressionList) {
+        super("Exporter");
         this.expressionList = expressionList;
         addActionListener(this);
     }
 
     /**
-     *
      * écris un fichier texte avec les expressions
      *
+     * @param e ActionEvent
      * @author Kilian GOËTZ
-     * @param e
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
-        if(fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
+        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             int length = expressionList.getComponentCount();
             File f = fileChooser.getSelectedFile();
             try {
-                FileWriter fw = new FileWriter(f,true);
-                for(int i=0; i<length-1;i++){
-                    String a = ((Expression)expressionList.getComponent(i)).getExpression();
+                FileWriter fw = new FileWriter(f, true);
+                for (int i = 0; i < length - 1; i++) {
+                    String a = ((Expression) expressionList.getComponent(i)).getExpression();
                     System.out.println(a);
                     fw.append(a).append("\r\n");
                 }
