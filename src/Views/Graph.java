@@ -6,7 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static java.lang.Double.NaN;
+
 public class Graph extends JPanel {
+    private static final double Y_THRESHOLD = 1.5;
+
     private final ArrayList<Expression> expressions;
     private double xMin;
     private double xMax;
@@ -62,6 +66,28 @@ public class Graph extends JPanel {
         this.yMax = yMax;
     }
 
+    private void fillGap(double x1, double y1, double x2, double y2, Expression fc, Graphics2D g) {
+        final double vunit = getHeight() / Math.abs(yMin - yMax);
+        final double step = (Math.abs(xMin) + Math.abs(xMax)) / getWidth();
+
+        double x3 = (x1 + x2) / 2;
+        double y3;
+        try {
+            y3 = translateY(fc.calculate(xMin + step * x3).toDouble() * vunit);
+        } catch (ArithmeticException e) {
+            return;
+        }
+        g.drawLine((int) x3, (int) y3, (int) x3, (int) y3);
+
+        if (Math.abs(y3 - y1) > Y_THRESHOLD && -getHeight() / 2. < y3 && y3 < getHeight() / 2.) {
+            fillGap(x1, y1, x3, y3, fc, g);
+        }
+
+        if (Math.abs(y2 - y3) > Y_THRESHOLD && -getHeight() / 2. < y3 && y3 < getHeight() / 2.) {
+            fillGap(x3, y3, x2, y2, fc, g);
+        }
+    }
+
     @Override
     public void paint(final Graphics G) {
         Graphics2D g = (Graphics2D) G;
@@ -74,29 +100,35 @@ public class Graph extends JPanel {
         drawAxes(g);
 
         final double vunit = H / Math.abs(yMin - yMax);
-        final double hunit = W / Math.abs(xMin - xMax);
 
         final double step = (Math.abs(xMin) + Math.abs(xMax)) / W;
 
         g.setStroke(new BasicStroke(1.5f));
 
-        for (Expression fc : expressions) {
+        for (final Expression fc : expressions) {
+            double point, lastY = NaN;
 
-            g.setColor(Color.RED);
+            g.setColor(Color.BLUE);
 
-            double point;
-
-            for (int i = 0; i < W; i++) {
+            for (int i = 1; i < W; i++) {
                 point = xMin + step * i;
-                int y;
+                double y;
 
+                g.setStroke(new BasicStroke(1.5f));
                 try {
-                    y = translateY((int) (fc.calculate(point).toDouble() * vunit));
+                    y = translateY(fc.calculate(point).toDouble() * vunit);
                 } catch (ArithmeticException e) {
+                    lastY = NaN;
                     continue;
                 }
 
-                g.drawLine(i, y, i, y);
+                if (!Double.isNaN(lastY) && Math.abs(lastY - y) > Y_THRESHOLD) {
+                    fillGap(i - 1, lastY, i, y, fc, g);
+                }
+
+                lastY = y;
+
+                g.drawLine(i, (int) y, i, (int) y);
             }
         }
     }
@@ -125,7 +157,7 @@ public class Graph extends JPanel {
         }
     }
 
-    private int translateY(int y) {
+    private double translateY(double y) {
         return -y;
     }
 }
