@@ -91,7 +91,7 @@ public class Graph extends JPanel {
     @Override
     public void paint(final Graphics G) {
         Graphics2D g = (Graphics2D) G;
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
 
         final int H = this.getHeight();
         final int W = this.getWidth();
