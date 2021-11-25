@@ -21,8 +21,12 @@ public class MainFrame extends JFrame {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
+        // graph
+        Graph graph = new Graph();
+        mainPanel.add(graph, BorderLayout.CENTER);
+
         // expression list
-        ExpressionList expressionList = new ExpressionList();
+        ExpressionList expressionList = new ExpressionList(graph);
         JScrollPane scrollPane = new JScrollPane(
             expressionList,
             ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -30,10 +34,6 @@ public class MainFrame extends JFrame {
         );
 
         mainPanel.add(scrollPane, BorderLayout.LINE_START);
-
-        // graph
-        Graph graph = new Graph(-10, 10, -10, 10);
-        mainPanel.add(graph, BorderLayout.CENTER);
 
         this.setContentPane(mainPanel);
         setJMenuBar(new MenuBar(expressionList));

@@ -10,7 +10,15 @@ import static java.lang.Double.NaN;
 
 public class Graph extends JPanel {
     private static final double Y_THRESHOLD = 1.5;
-
+    private static final Color[] COLORS = {
+        Color.RED,
+        Color.BLUE,
+        Color.GREEN,
+        Color.ORANGE,
+        Color.CYAN,
+        Color.MAGENTA,
+        Color.PINK
+    };
     private final ArrayList<Expression> expressions;
     private double xMin;
     private double xMax;
@@ -30,8 +38,26 @@ public class Graph extends JPanel {
         expressions = new ArrayList<>();
     }
 
-    public void addExpression(Expression e) {
-        expressions.add(e);
+    public int addExpression(int index, Expression e) {
+        int pos;
+        if (index < 0) {
+            expressions.add(e);
+            pos = expressions.size() - 1;
+        } else {
+            expressions.remove(index);
+            expressions.add(index, e);
+            pos = index;
+        }
+
+        repaint();
+        return pos;
+    }
+
+    public void removeExpression(int index) {
+        if (index >= 0) {
+            expressions.remove(index);
+            repaint();
+        }
     }
 
     public double getXMin() {
@@ -89,7 +115,8 @@ public class Graph extends JPanel {
     }
 
     @Override
-    public void paint(final Graphics G) {
+    public void paintComponent(final Graphics G) {
+        super.paintComponent(G);
         Graphics2D g = (Graphics2D) G;
         g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
 
@@ -105,10 +132,12 @@ public class Graph extends JPanel {
 
         g.setStroke(new BasicStroke(1.5f));
 
-        for (final Expression fc : expressions) {
+        for (int j = 0; j < expressions.size(); j++) {
+            final Expression fc = expressions.get(j);
+
             double point, lastY = NaN;
 
-            g.setColor(Color.BLUE);
+            g.setColor(COLORS[j % COLORS.length]);
 
             for (int i = 1; i < W; i++) {
                 point = xMin + step * i;

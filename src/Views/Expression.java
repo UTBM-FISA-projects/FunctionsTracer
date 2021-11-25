@@ -1,14 +1,27 @@
 package Views;
 
+import Controllers.Parser.Parser;
+import Exceptions.MalformedExpressionException;
+import Exceptions.MismatchParenthesisException;
+
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.EmptyStackException;
 
 public class Expression extends JPanel {
 
-    private TextField textField;
+    private final TextField textField;
+    private final Graph graph;
+    private int index = -1;
 
-    public Expression() {
+    public Expression(Graph graph) {
+        super();
+
+        this.graph = graph;
+
         setLayout(new FlowLayout());
         textField = new TextField();
 
@@ -21,6 +34,7 @@ public class Expression extends JPanel {
         add(delButton);
 
         //Textfield
+        textField.getDocument().addDocumentListener(new ExpressionListener());
         add(textField);
 
         //Bouton Supprimer
@@ -43,18 +57,17 @@ public class Expression extends JPanel {
     }
 
     public String getExpression() {
-
         return textField.getText();
-
     }
 
     private static class ActionColor extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
             Color newColor = JColorChooser.showDialog(
-                    null,
-                    "Couleur de la courbe",
-                    Color.black);
+                null,
+                "Couleur de la courbe",
+                Color.black
+            );
         }
     }
 
@@ -102,6 +115,34 @@ public class Expression extends JPanel {
             frameTable.setTitle("Valeurs");
             frameTable.setMinimumSize(new Dimension(320, 360));
             frameTable.setVisible(true);
+        }
+    }
+
+    private class ExpressionListener implements DocumentListener {
+        private void updateExpression() {
+            try {
+                Parser parser = new Parser(textField.getText());
+                Controllers.Operands.Expression expr = parser.parse();
+                index = graph.addExpression(index, expr);
+            } catch (MismatchParenthesisException | MalformedExpressionException | EmptyStackException ignored) {
+                graph.removeExpression(index);
+                index = -1;
+            }
+        }
+
+        @Override
+        public void insertUpdate(final DocumentEvent documentEvent) {
+            updateExpression();
+        }
+
+        @Override
+        public void removeUpdate(final DocumentEvent documentEvent) {
+            updateExpression();
+        }
+
+        @Override
+        public void changedUpdate(final DocumentEvent documentEvent) {
+            updateExpression();
         }
     }
 }

@@ -7,14 +7,16 @@ import java.awt.event.ActionListener;
 
 public class ExpressionList extends JPanel implements ActionListener {
 
-    private GridLayout layout;
-    private JButton addButton;
+    private final GridLayout layout;
+    private final JButton addButton;
+    private final Graph graph;
 
-    public ExpressionList() {
+    public ExpressionList(Graph graph) {
+        this.graph = graph;
 
         layout = new GridLayout(2, 1, 3, 3);
         setLayout(layout);
-        add(new Expression());
+        add(new Expression(graph));
 
         Image img = getToolkit().getImage("resources/plus.png");
         Image newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
@@ -29,7 +31,7 @@ public class ExpressionList extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         layout.setRows(layout.getRows() + 1);
         remove(addButton);
-        add(new Expression());
+        add(new Expression(graph));
         add(addButton);
         revalidate();
     }
