@@ -13,7 +13,7 @@ public class Expression extends JPanel {
         textField = new TextField();
 
         //Bouton Choix couleur
-        Image imgdel = getToolkit().getImage("resources\\color.png");
+        Image imgdel = getToolkit().getImage("resources/color.png");
         Image newimgdel = imgdel.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
         Icon icondel = new ImageIcon(newimgdel);
         JButton delButton = new ExpressionButtons(icondel);
@@ -24,7 +24,7 @@ public class Expression extends JPanel {
         add(textField);
 
         //Bouton Supprimer
-        Image imgColor = getToolkit().getImage("resources\\trash.png");
+        Image imgColor = getToolkit().getImage("resources/trash.png");
         Image newimgColor = imgColor.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
         Icon iconColor = new ImageIcon(newimgColor);
         JButton colorButton = new ExpressionButtons(iconColor);
@@ -33,7 +33,7 @@ public class Expression extends JPanel {
 
 
         //Bouton Tableau
-        Image imgtab = getToolkit().getImage("resources\\table.png");
+        Image imgtab = getToolkit().getImage("resources/table.png");
         Image newimgtab = imgtab.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
         Icon icontab = new ImageIcon(newimgtab);
         JButton tabButton = new ExpressionButtons(icontab);
