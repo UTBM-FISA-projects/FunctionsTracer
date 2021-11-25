@@ -19,6 +19,11 @@ public class Exponentiation extends Operator {
         double a = A.calculate(x).toDouble();
         double b = B.calculate(x).toDouble();
 
+        // Puissance est définie sur R+* pour les puissances réels
+        if (b % 1 != 0 && a <= 0) {
+            throw new ArithmeticException();
+        }
+
         return new Number(Math.pow(a, b));
     }
 
