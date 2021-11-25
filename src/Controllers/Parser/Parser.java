@@ -242,7 +242,7 @@ public class Parser {
             pushOperator();
         }
 
-        if (stack.peek().getClass() == Number.class) {
+        if (stack.peek().getClass() == Number.class || stack.peek().getClass() == Unknown.class) {
             return new Expression(stack.pop(), null, null, false);
         }
 

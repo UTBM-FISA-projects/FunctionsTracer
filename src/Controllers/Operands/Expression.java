@@ -90,7 +90,7 @@ public class Expression extends Operand {
         if (operator != null) {
             return operator.calculate(firstOperand, secondOperand, x);
         } else {
-            return (Number) firstOperand;
+            return firstOperand.calculate(x);
         }
     }
 
