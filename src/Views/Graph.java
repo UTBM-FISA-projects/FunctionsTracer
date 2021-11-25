@@ -10,15 +10,7 @@ import static java.lang.Double.NaN;
 
 public class Graph extends JPanel {
     private static final double Y_THRESHOLD = 1.5;
-    private static final Color[] COLORS = {
-        Color.RED,
-        Color.BLUE,
-        Color.GREEN,
-        Color.ORANGE,
-        Color.CYAN,
-        Color.MAGENTA,
-        Color.PINK
-    };
+    private final ArrayList<Color> colors;
     private final ArrayList<Expression> expressions;
     private double xMin;
     private double xMax;
@@ -36,16 +28,20 @@ public class Graph extends JPanel {
         this.yMin = yMin;
         this.yMax = yMax;
         expressions = new ArrayList<>();
+        colors = new ArrayList<>();
     }
 
-    public int addExpression(int index, Expression e) {
+    public int addExpression(int index, Expression e, Color color) {
         int pos;
         if (index < 0) {
             expressions.add(e);
+            colors.add(color);
             pos = expressions.size() - 1;
         } else {
             expressions.remove(index);
             expressions.add(index, e);
+            colors.remove(index);
+            colors.add(index, color);
             pos = index;
         }
 
@@ -56,6 +52,7 @@ public class Graph extends JPanel {
     public void removeExpression(int index) {
         if (index >= 0) {
             expressions.remove(index);
+            colors.remove(index);
             repaint();
         }
     }
@@ -137,7 +134,7 @@ public class Graph extends JPanel {
 
             double point, lastY = NaN;
 
-            g.setColor(COLORS[j % COLORS.length]);
+            g.setColor(colors.get(j));
 
             for (int i = 1; i < W; i++) {
                 point = xMin + step * i;

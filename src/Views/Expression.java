@@ -16,6 +16,7 @@ public class Expression extends JPanel {
     private final TextField textField;
     private final Graph graph;
     private int index = -1;
+    private Color color = Color.RED;
 
     public Expression(Graph graph) {
         super();
@@ -60,14 +61,14 @@ public class Expression extends JPanel {
         return textField.getText();
     }
 
-    private static class ActionColor extends AbstractAction {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Color newColor = JColorChooser.showDialog(
-                null,
-                "Couleur de la courbe",
-                Color.black
-            );
+    private void updateExpression() {
+        try {
+            Parser parser = new Parser(textField.getText());
+            Controllers.Operands.Expression expr = parser.parse();
+            index = graph.addExpression(index, expr, color);
+        } catch (MismatchParenthesisException | MalformedExpressionException | EmptyStackException ignored) {
+            graph.removeExpression(index);
+            index = -1;
         }
     }
 
@@ -118,18 +119,19 @@ public class Expression extends JPanel {
         }
     }
 
-    private class ExpressionListener implements DocumentListener {
-        private void updateExpression() {
-            try {
-                Parser parser = new Parser(textField.getText());
-                Controllers.Operands.Expression expr = parser.parse();
-                index = graph.addExpression(index, expr);
-            } catch (MismatchParenthesisException | MalformedExpressionException | EmptyStackException ignored) {
-                graph.removeExpression(index);
-                index = -1;
-            }
+    private class ActionColor extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            color = JColorChooser.showDialog(
+                null,
+                "Couleur de la courbe",
+                Color.black
+            );
+            updateExpression();
         }
+    }
 
+    private class ExpressionListener implements DocumentListener {
         @Override
         public void insertUpdate(final DocumentEvent documentEvent) {
             updateExpression();
