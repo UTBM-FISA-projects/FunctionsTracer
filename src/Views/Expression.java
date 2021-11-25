@@ -18,7 +18,7 @@ public class Expression extends JPanel {
     private int index = -1;
     private Color color = Color.RED;
 
-    public Expression(Graph graph) {
+    public Expression(Graph graph, ExpressionList.ActionDelete actionDelete) {
         super();
 
         this.graph = graph;
@@ -43,7 +43,8 @@ public class Expression extends JPanel {
         Image newimgColor = imgColor.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
         Icon iconColor = new ImageIcon(newimgColor);
         JButton colorButton = new ExpressionButtons(iconColor);
-        colorButton.addActionListener(new ActionDelete());
+        actionDelete.setElement(this);
+        colorButton.addActionListener(actionDelete);
         add(colorButton);
 
 
@@ -69,13 +70,6 @@ public class Expression extends JPanel {
         } catch (MismatchParenthesisException | MalformedExpressionException | EmptyStackException ignored) {
             graph.removeExpression(index);
             index = -1;
-        }
-    }
-
-    private static class ActionDelete extends AbstractAction {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
         }
     }
 
