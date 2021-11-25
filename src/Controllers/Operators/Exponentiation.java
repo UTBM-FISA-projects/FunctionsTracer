@@ -13,15 +13,17 @@ import Controllers.Operators.Properties.Associativity;
 public class Exponentiation extends Operator {
     /**
      * {@inheritDoc}
+     *
+     * @throws ArithmeticException Si on monte à une puissance non entière un nombre négatif
      */
     @Override
-    public Number calculate(final Operand A, final Operand B, final double x) {
+    public Number calculate(final Operand A, final Operand B, final double x) throws ArithmeticException {
         double a = A.calculate(x).toDouble();
         double b = B.calculate(x).toDouble();
 
         // Puissance est définie sur R+* pour les puissances réels
         if (b % 1 != 0 && a <= 0) {
-            throw new ArithmeticException();
+            throw new ArithmeticException("a^b n'est pas définie pour b non entier et a négatif.");
         }
 
         return new Number(Math.pow(a, b));

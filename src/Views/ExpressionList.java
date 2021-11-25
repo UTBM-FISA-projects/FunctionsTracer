@@ -7,15 +7,13 @@ import java.awt.event.ActionListener;
 
 public class ExpressionList extends JPanel implements ActionListener {
 
-    private final BoxLayout layout;
     private final JButton addButton;
     private final Graph graph;
 
     public ExpressionList(Graph graph) {
         this.graph = graph;
 
-        layout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        setLayout(layout);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(new Expression(graph, new ActionDelete()));
 
         Image img = getToolkit().getImage("resources/plus.png");
@@ -24,7 +22,6 @@ public class ExpressionList extends JPanel implements ActionListener {
         addButton = new ExpressionButtons(icon);
         addButton.addActionListener(this);
         add(addButton);
-
     }
 
     @Override
@@ -35,13 +32,31 @@ public class ExpressionList extends JPanel implements ActionListener {
         revalidate();
     }
 
+    /**
+     * Gère les demandes de suppression d'une {@link Expression}.
+     *
+     * @author Valentin DOREAU
+     */
     public class ActionDelete extends AbstractAction {
+        /**
+         * {@link Expression} concernée par l'action.
+         */
         private Expression element = null;
 
+        /**
+         * Définie l'élément concerné par l'action
+         *
+         * @param element {@link Expression} à supprimer
+         */
         public void setElement(final Expression element) {
             this.element = element;
         }
 
+        /**
+         * Action déclenchée à la demande de suppression d'une {@link Expression}.
+         *
+         * @param actionEvent Évènement
+         */
         @Override
         public void actionPerformed(final ActionEvent actionEvent) {
             if (element != null) {
