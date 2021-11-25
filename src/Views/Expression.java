@@ -77,6 +77,7 @@ public class Expression extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             JFrame frameTable = new JFrame();
+            frameTable.setLocationRelativeTo(null);
             Image img = new ImageIcon("resources/logoNoir.png").getImage();
             JPanel panel = new JPanel();
             JPanel input = new JPanel();

@@ -16,6 +16,7 @@ public class MainFrame extends JFrame {
         setIconImage(new ImageIcon("resources/logoNoir.png").getImage());
         setMinimumSize(new Dimension(640, 360));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
 
         // main panel
         JPanel mainPanel = new JPanel();
