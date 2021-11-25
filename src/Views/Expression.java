@@ -117,12 +117,15 @@ public class Expression extends JPanel {
     private class ActionColor extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-            color = JColorChooser.showDialog(
+            final Color tmp = JColorChooser.showDialog(
                 null,
                 "Couleur de la courbe",
-                Color.black
+                color
             );
-            updateExpression();
+            if (tmp != null) {
+                color = tmp;
+                updateExpression();
+            }
         }
     }
 
