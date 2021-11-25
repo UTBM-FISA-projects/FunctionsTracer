@@ -29,16 +29,16 @@ public class Parser {
      * Liste des fonctions disponibles pour le parser.
      */
     private final OperatorList functions = new OperatorList(new ArrayList<>(List.of(
-            new Absolute(),
-            new CommonLogarithm(),
-            new Cosine(),
-            new CubeRoot(),
-            new Exponential(),
-            new Maxima(),
-            new NaturalLogarithm(),
-            new Sine(),
-            new SquareRoot(),
-            new Tangent()
+        new Absolute(),
+        new CommonLogarithm(),
+        new Cosine(),
+        new CubeRoot(),
+        new Exponential(),
+        new Maxima(),
+        new NaturalLogarithm(),
+        new Sine(),
+        new SquareRoot(),
+        new Tangent()
     )));
     /**
      * Liste des opérateurs et fonctions disponibles.
@@ -114,9 +114,9 @@ public class Parser {
      */
     public void updateExpression(final String expression) {
         tokenize(
-                expression
-                        .toLowerCase()
-                        .replace("\s", "")
+            expression
+                .toLowerCase()
+                .replace("\s", "")
         );
     }
 
@@ -202,14 +202,14 @@ public class Parser {
             // opérateur
             else if ((o1 = operators.bySymbol(token)) != null) {
                 while (
-                        !opStack.empty() && !opStack.peek().equals("(") &&
+                    !opStack.empty() && !opStack.peek().equals("(") &&
+                        (
+                            operators.bySymbol(opStack.peek()).precedence() > o1.precedence() ||
                                 (
-                                        operators.bySymbol(opStack.peek()).precedence() > o1.precedence() ||
-                                                (
-                                                        operators.bySymbol(opStack.peek()).precedence() == o1.precedence()
-                                                                && o1.isLeftAssociative()
-                                                )
+                                    operators.bySymbol(opStack.peek()).precedence() == o1.precedence()
+                                        && o1.isLeftAssociative()
                                 )
+                        )
                 ) {
                     pushOperator();
                 }
