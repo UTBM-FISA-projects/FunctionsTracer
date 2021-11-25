@@ -3,6 +3,7 @@ package Views;
 import Controllers.Parser.Parser;
 import Exceptions.MalformedExpressionException;
 import Exceptions.MismatchParenthesisException;
+import Views.ValueTable.ValueTableFrame;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -73,44 +74,13 @@ public class Expression extends JPanel {
         }
     }
 
-    private static class ActionTable extends AbstractAction {
+    private class ActionTable extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFrame frameTable = new JFrame();
-            frameTable.setLocationRelativeTo(null);
-            Image img = new ImageIcon("resources/logoNoir.png").getImage();
-            JPanel panel = new JPanel();
-            JPanel input = new JPanel();
-            JPanel mainPanel = new JPanel();
-            panel.setLayout(new BorderLayout());
-            mainPanel.setLayout(new BorderLayout());
-            String[] titles = {"abscisse (x)", "ordonnée (y)"};
-            String[][] data = {{"1", "2"}, {"2", "3"}};
-
-            //Personnalisation de la JTable
-            JTable table = new JTable(data, titles);
-            table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
-            table.getTableHeader().setOpaque(false);
-            table.getTableHeader().setBackground(new Color(63, 122, 237));
-            table.getTableHeader().setForeground(new Color(255, 255, 255));
-
-            //Créer les 3 JSpinner
-            input.add(new JLabel("xmin"));
-            input.add(new TableSpinner());
-            input.add(new JLabel("xmax"));
-            input.add(new TableSpinner());
-            input.add(new JLabel("pas"));
-            input.add(new TableSpinner());
-
-            mainPanel.add(input, BorderLayout.NORTH);
-            panel.add(table.getTableHeader(), BorderLayout.NORTH);
-            panel.add(table, BorderLayout.CENTER);
-            mainPanel.add(panel, BorderLayout.CENTER);
-            frameTable.add(mainPanel);
-            frameTable.setIconImage(img);
-            frameTable.setTitle("Valeurs");
-            frameTable.setMinimumSize(new Dimension(320, 360));
-            frameTable.setVisible(true);
+            try {
+                new ValueTableFrame(new Parser(textField.getText()).parse());
+            } catch (MismatchParenthesisException | MalformedExpressionException ignored) {
+            }
         }
     }
 
