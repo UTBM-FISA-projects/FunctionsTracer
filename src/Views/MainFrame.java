@@ -6,11 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
+
     public MainFrame() {
         super("Functions Tracer");
 
         // window
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         setIconImage(new ImageIcon("resources/logoNoir.png").getImage());
         setMinimumSize(new Dimension(640, 360));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -26,6 +28,7 @@ public class MainFrame extends JFrame {
             ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
             ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
         );
+
         mainPanel.add(scrollPane, BorderLayout.LINE_START);
 
         // graph
