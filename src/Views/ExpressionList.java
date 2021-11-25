@@ -16,7 +16,7 @@ public class ExpressionList extends JPanel implements ActionListener {
         setLayout(layout);
         add(new Expression());
 
-        Image img = getToolkit().getImage("resources\\plus.png");
+        Image img = getToolkit().getImage("resources/plus.png");
         Image newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
         Icon icon = new ImageIcon(newimg);
         addButton = new ExpressionButtons(icon);
