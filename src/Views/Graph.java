@@ -21,6 +21,19 @@ public class Graph extends JPanel {
      */
     private static final double GAP_THRESHOLD = 1.5;
     /**
+     * Nombre minimal de pixels dans une unité en abscisse.
+     *
+     * @see #drawAxes(Graphics2D)
+     */
+    private static final short X_MIN_UNIT = 40;
+    /**
+     * Nombre minimal de pixels dans une unité en ordonnée.
+     *
+     * @see #drawAxes(Graphics2D)
+     */
+    private static final short Y_MIN_UNIT = 30;
+
+    /**
      * Couleur des courbes dessinées.
      */
     private final ArrayList<Color> colors;
@@ -28,6 +41,7 @@ public class Graph extends JPanel {
      * Courbes dessinées
      */
     private final ArrayList<Expression> expressions;
+
     /**
      * Abscisse minimum du graphique.
      */
@@ -277,7 +291,8 @@ public class Graph extends JPanel {
     }
 
     /**
-     * Dessine les axes du graphique avec une graduation toute les une unité.
+     * Dessine les axes du graphique avec la graduation.<br>
+     * La graduation s'ajuste en fonction du zoom.
      *
      * @param g Graphics2D pour dessiner
      */
@@ -285,25 +300,39 @@ public class Graph extends JPanel {
         final int H = this.getHeight();
         final int W = this.getWidth();
 
-        final double vunit = H / Math.abs(yMin - yMax);
-        final double hunit = W / Math.abs(xMin - xMax);
+        double pixelPerYUnit = H / Math.abs(yMin - yMax);
+        double pixelPerXUnit = W / Math.abs(xMin - xMax);
+
+        int yFactor = 1, xFactor = 1;
+
+        while (pixelPerYUnit < Y_MIN_UNIT) {
+            pixelPerYUnit *= 2;
+            yFactor *= 2;
+        }
+
+        while (pixelPerXUnit < X_MIN_UNIT) {
+            pixelPerXUnit *= 2;
+            xFactor *= 2;
+        }
+
+        double index = xMin;
 
         // abscisses
-        double count = xMin;
-        // graduation tout les 1 unité
         g.drawLine(0, 0, W, 0);
-        for (double i = hunit; i < W; i += hunit) {
+        // graduation
+        for (double i = pixelPerXUnit; i < W; i += pixelPerXUnit) {
             g.drawLine((int) i, -10, (int) i, 10);
-            g.drawString(String.format("%.0f", ++count), (int) i, -12);
+            g.drawString(String.format("%.0f", index += xFactor), (int) i - 5, -15);
         }
+
+        index = yMax;
 
         // ordonnées
         g.drawLine(W / 2, -H / 2, W / 2, H);
-        count = yMax;
-        // graduation tout les 1 unité
-        for (double i = -H / 2. + vunit; i < H; i += vunit) {
+        // graduation
+        for (double i = -H / 2. + pixelPerYUnit; i < H; i += pixelPerYUnit) {
             g.drawLine(W / 2 - 10, (int) i, W / 2 + 10, (int) i);
-            g.drawString(String.format("%.0f", --count), W / 2 + 12, (int) i);
+            g.drawString(String.format("%.0f", index -= yFactor), W / 2 + 15, (int) i + 2);
         }
     }
 
