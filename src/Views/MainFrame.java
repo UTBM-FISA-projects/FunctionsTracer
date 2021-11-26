@@ -1,6 +1,7 @@
 package Views;
 
 import Views.MenuBar.MenuBar;
+import Views.ValueTable.ValueTableSpinner;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,16 +23,33 @@ public class MainFrame extends JFrame {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
-        // graph
+
+        //  spinner
+        JPanel input = new JPanel();
+        input.add(new JLabel("xmin"));
+        input.add(new ValueTableSpinner());
+        input.add(new JLabel("xmax"));
+        input.add(new ValueTableSpinner());
+        input.add(new JLabel("ymin"));
+        input.add(new ValueTableSpinner());
+        input.add(new JLabel("ymax"));
+        input.add(new ValueTableSpinner());
+
+        // Graph + Spinner
         Graph graph = new Graph();
-        mainPanel.add(graph, BorderLayout.CENTER);
+        JPanel graphSpinner = new JPanel();
+        graphSpinner.setLayout(new BorderLayout());
+        graphSpinner.add(graph, BorderLayout.CENTER);
+        graphSpinner.add(input, BorderLayout.NORTH);
+        mainPanel.add(graphSpinner, BorderLayout.CENTER);
+
 
         // expression list
         ExpressionList expressionList = new ExpressionList(graph);
         JScrollPane scrollPane = new JScrollPane(
-            expressionList,
-            ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+                expressionList,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
         );
 
         mainPanel.add(scrollPane, BorderLayout.LINE_START);
