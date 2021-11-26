@@ -85,7 +85,7 @@ public class Expression extends JPanel {
             table.getTableHeader().setBackground(new Color(63, 122, 237));
             table.getTableHeader().setForeground(new Color(255, 255, 255));
 
-            //Créer les 3 JSpinner
+            //Créer les JSpinner
             input.add(new JLabel("xmin"));
             input.add(new TableSpinner());
             input.add(new JLabel("xmax"));

@@ -8,15 +8,15 @@ import java.awt.*;
  *
  * @author Kilian GOËTZ
  */
-public class TextField extends JTextField{
+public class TextField extends JTextField {
 
     /**
      * Créer le champ texte pour rentrer une expression
      *
      * @author Kilian GOËTZ
      */
-    public TextField(){
+    public TextField() {
         setFont(new Font("Latex", Font.PLAIN, 20));
-        setPreferredSize(new Dimension(200,30));
+        setPreferredSize(new Dimension(200, 30));
     }
 }
