@@ -27,10 +27,7 @@ public class Expression extends JPanel {
         setLayout(new FlowLayout());
 
         //Bouton Choix couleur
-        Image imgdel = getToolkit().getImage("resources/color.png");
-        Image newimgdel = imgdel.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
-        Icon icondel = new ImageIcon(newimgdel);
-        JButton delButton = new ExpressionButtons(icondel);
+        JButton delButton = new ExpressionButtons("resources/color.png");
         delButton.addActionListener(new ActionColor());
         add(delButton);
 
@@ -41,20 +38,14 @@ public class Expression extends JPanel {
         add(textField);
 
         //Bouton Supprimer
-        Image imgColor = getToolkit().getImage("resources/trash.png");
-        Image newimgColor = imgColor.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
-        Icon iconColor = new ImageIcon(newimgColor);
-        JButton colorButton = new ExpressionButtons(iconColor);
+        JButton colorButton = new ExpressionButtons("resources/trash.png");
         actionDelete.setElement(this);
         colorButton.addActionListener(actionDelete);
         add(colorButton);
 
 
         //Bouton Tableau
-        Image imgtab = getToolkit().getImage("resources/table.png");
-        Image newimgtab = imgtab.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
-        Icon icontab = new ImageIcon(newimgtab);
-        JButton tabButton = new ExpressionButtons(icontab);
+        JButton tabButton = new ExpressionButtons("resources/table.png");
         tabButton.addActionListener(new ActionTable());
         add(tabButton);
 

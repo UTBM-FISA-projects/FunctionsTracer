@@ -1,7 +1,6 @@
 package Views;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,10 +15,7 @@ public class ExpressionList extends JPanel implements ActionListener {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(new Expression(graph, new ActionDelete()));
 
-        Image img = getToolkit().getImage("resources/plus.png");
-        Image newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
-        Icon icon = new ImageIcon(newimg);
-        addButton = new ExpressionButtons(icon);
+        addButton = new ExpressionButtons("resources/plus.png", 40, 40);
         addButton.addActionListener(this);
         add(addButton);
     }
