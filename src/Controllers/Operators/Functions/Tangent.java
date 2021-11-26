@@ -13,7 +13,7 @@ public class Tangent extends Function {
     /**
      * {@inheritDoc}
      *
-     * @throws ArithmeticException
+     * @throws ArithmeticException Si la valeur donnée n'est pas définie
      */
     @Override
     public Number calculate(final Operand A, final Operand B, final double x) throws ArithmeticException {
