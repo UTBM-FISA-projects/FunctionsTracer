@@ -2,6 +2,7 @@ package Views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 /**
  * Représente les différents boutons associés aux espressions
@@ -15,7 +16,7 @@ public class ExpressionButtons extends JButton {
      * @param iconPath Chemin de l'icon
      * @author Kilian
      */
-    public ExpressionButtons(String iconPath) {
+    public ExpressionButtons(URL iconPath) {
         this(iconPath, 20, 20);
     }
 
@@ -26,7 +27,7 @@ public class ExpressionButtons extends JButton {
      * @param iconWidth  Largeur de l'icon
      * @param iconHeight Hauteur de l'icon
      */
-    public ExpressionButtons(String iconPath, int iconWidth, int iconHeight) {
+    public ExpressionButtons(URL iconPath, int iconWidth, int iconHeight) {
         super();
 
         final Icon icon = new ImageIcon(

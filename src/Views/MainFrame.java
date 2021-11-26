@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
         // window
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        setIconImage(new ImageIcon("resources/logoNoir.png").getImage());
+        setIconImage(new ImageIcon(getClass().getResource("logoNoir.png")).getImage());
         setMinimumSize(new Dimension(640, 360));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
         mainPanel.setLayout(new BorderLayout());
 
 
-        //  spinner
+        // Graph spinners
         JPanel input = new JPanel();
         input.add(new JLabel("xmin"));
         input.add(new ValueTableSpinner());
@@ -47,9 +47,9 @@ public class MainFrame extends JFrame {
         // expression list
         ExpressionList expressionList = new ExpressionList(graph);
         JScrollPane scrollPane = new JScrollPane(
-                expressionList,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+            expressionList,
+            ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
         );
 
         mainPanel.add(scrollPane, BorderLayout.LINE_START);

@@ -1,6 +1,7 @@
 package Views.ValueTable;
 
 import Controllers.Operands.Expression;
+import Views.MainFrame;
 
 import javax.swing.*;
 import javax.swing.event.TableModelListener;
@@ -18,7 +19,7 @@ public class ValueTableFrame extends JFrame {
     private final ValueTableSpinner step;
 
     public ValueTableFrame(final Expression expression) {
-        setIconImage(new ImageIcon("resources/logoNoir.png").getImage());
+        setIconImage(new ImageIcon(MainFrame.class.getResource("logoNoir.png")).getImage());
         setTitle(String.format("Valeurs de %s", expression));
         setMinimumSize(new Dimension(320, 360));
         setLocationRelativeTo(null);

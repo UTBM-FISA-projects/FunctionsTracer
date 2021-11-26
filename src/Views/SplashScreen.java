@@ -17,7 +17,7 @@ public class SplashScreen extends JFrame {
      * @author Kilian GOËTZ
      */
     public SplashScreen() {
-        ImageIcon icon = new ImageIcon("resources/functionTracer.gif");
+        ImageIcon icon = new ImageIcon(getClass().getResource("functionTracer.gif"));
         JLabel image = new JLabel(icon);
         setUndecorated(true);
         setSize(640, 360);
