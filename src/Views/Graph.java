@@ -135,12 +135,13 @@ public class Graph extends JPanel {
     }
 
     /**
-     * Défini l'abscisse minimum du graphique.
+     * Défini l'abscisse minimum du graphique et le repeint.
      *
      * @param xMin X minimum
      */
     public void setXMin(final double xMin) {
         this.xMin = xMin;
+        repaint();
     }
 
     /**
@@ -153,12 +154,13 @@ public class Graph extends JPanel {
     }
 
     /**
-     * Défini l'abscisse maximum du graphique.
+     * Défini l'abscisse maximum du graphique et le repeint.
      *
      * @param xMax X maximum
      */
     public void setXMax(final double xMax) {
         this.xMax = xMax;
+        repaint();
     }
 
     /**
@@ -171,12 +173,13 @@ public class Graph extends JPanel {
     }
 
     /**
-     * Défini l'ordonnée minimum du graphique.
+     * Défini l'ordonnée minimum du graphique et le repeint.
      *
      * @param yMin Y minimum
      */
     public void setYMin(final double yMin) {
         this.yMin = yMin;
+        repaint();
     }
 
     /**
@@ -189,12 +192,13 @@ public class Graph extends JPanel {
     }
 
     /**
-     * Défini l'ordonnée maximum du graphique.
+     * Défini l'ordonnée maximum du graphique et le repeint.
      *
      * @param yMax Y maximum
      */
     public void setYMax(final double yMax) {
         this.yMax = yMax;
+        repaint();
     }
 
     /**

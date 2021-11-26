@@ -10,12 +10,19 @@ import java.awt.*;
  */
 public class ValueTableSpinner extends JSpinner {
     /**
-     * Créer les JSpinner nécessaire pour le boutton de la table des valeurs
+     * Créé un spinner avec 1 comme valeur par défaut.
+     */
+    public ValueTableSpinner() {
+        this(1d);
+    }
+
+    /**
+     * Créé les JSpinner nécessaire pour le bouton de la table des valeurs
      *
      * @author Kilian GOËTZ
      */
-    public ValueTableSpinner() {
+    public ValueTableSpinner(double defaultValue) {
         setPreferredSize(new Dimension(60, 30));
-        setModel(new SpinnerNumberModel(1d, -Double.MAX_VALUE, Double.MAX_VALUE, 0.1));
+        setModel(new SpinnerNumberModel(defaultValue, -Double.MAX_VALUE, Double.MAX_VALUE, 0.1));
     }
 }

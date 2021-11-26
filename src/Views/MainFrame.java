@@ -23,26 +23,37 @@ public class MainFrame extends JFrame {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
+        // Graph
+        final Graph graph = new Graph();
 
         // Graph spinners
-        JPanel input = new JPanel();
+        final JPanel input = new JPanel();
         input.add(new JLabel("xmin"));
-        input.add(new ValueTableSpinner());
-        input.add(new JLabel("xmax"));
-        input.add(new ValueTableSpinner());
-        input.add(new JLabel("ymin"));
-        input.add(new ValueTableSpinner());
-        input.add(new JLabel("ymax"));
-        input.add(new ValueTableSpinner());
+        final ValueTableSpinner xmin = new ValueTableSpinner(-10);
+        xmin.addChangeListener(ignored -> graph.setXMin((Double) xmin.getValue()));
+        input.add(xmin);
 
-        // Graph + Spinner
-        Graph graph = new Graph();
+        input.add(new JLabel("xmax"));
+        final ValueTableSpinner xmax = new ValueTableSpinner(10);
+        xmax.addChangeListener(ignored -> graph.setXMax((Double) xmax.getValue()));
+        input.add(xmax);
+
+        input.add(new JLabel("ymin"));
+        final ValueTableSpinner ymin = new ValueTableSpinner(-10);
+        ymin.addChangeListener(ignored -> graph.setYMin((Double) ymin.getValue()));
+        input.add(ymin);
+
+        input.add(new JLabel("ymax"));
+        final ValueTableSpinner ymax = new ValueTableSpinner(10);
+        ymax.addChangeListener(ignored -> graph.setYMax((Double) ymax.getValue()));
+        input.add(ymax);
+
+        // addition Graph + Spinner
         JPanel graphSpinner = new JPanel();
         graphSpinner.setLayout(new BorderLayout());
         graphSpinner.add(graph, BorderLayout.CENTER);
         graphSpinner.add(input, BorderLayout.NORTH);
         mainPanel.add(graphSpinner, BorderLayout.CENTER);
-
 
         // expression list
         ExpressionList expressionList = new ExpressionList(graph);
