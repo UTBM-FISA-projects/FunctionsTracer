@@ -51,8 +51,22 @@ public class Expression extends JPanel {
 
     }
 
+    /**
+     * Récupère l'expression affichée dans le champ texte.
+     *
+     * @return L'expression affichée
+     */
     public String getExpression() {
         return textField.getText();
+    }
+
+    /**
+     * Défini l'expression affichée dans le champ texte.
+     *
+     * @param expression Expression à afficher
+     */
+    public void setExpression(String expression) {
+        textField.setText(expression);
     }
 
     private void updateExpression() {

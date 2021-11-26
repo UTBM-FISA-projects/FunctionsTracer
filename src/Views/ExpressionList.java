@@ -20,6 +20,21 @@ public class ExpressionList extends JPanel implements ActionListener {
         add(addButton);
     }
 
+    /**
+     * Ajoute une expression à la liste.
+     *
+     * @param expr Expression à ajouter
+     * @see Views.MenuBar.FileMenu.MenuItemOpen
+     */
+    public void addExpression(String expr) {
+        remove(addButton);
+        Expression expression = new Expression(graph, new ActionDelete());
+        expression.setExpression(expr);
+        add(expression);
+        add(addButton);
+        revalidate();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         remove(addButton);

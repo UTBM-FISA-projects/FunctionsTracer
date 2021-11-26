@@ -9,6 +9,6 @@ public class FileMenu extends JMenu {
     public FileMenu(ExpressionList expressionList) {
         super("Fichier");
         add(new FileMenuExport(expressionList));
-        add(new MenuItemOpen());
+        add(new MenuItemOpen(expressionList));
     }
 }

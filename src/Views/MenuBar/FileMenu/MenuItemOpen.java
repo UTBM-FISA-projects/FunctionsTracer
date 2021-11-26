@@ -1,23 +1,19 @@
 package Views.MenuBar.FileMenu;
 
 
-import Views.Expression;
 import Views.ExpressionList;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class MenuItemOpen extends JMenuItem implements ActionListener {
 
-    private Image img;
-    private ExpressionList expressionList;
+    private final ExpressionList expressionList;
 
-    public MenuItemOpen() {
+    public MenuItemOpen(ExpressionList expressionList) {
         super("Ouvrir");
         addActionListener(this);
         this.expressionList = expressionList;
@@ -26,19 +22,21 @@ public class MenuItemOpen extends JMenuItem implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
-        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            int length = expressionList.getComponentCount();
-            File f = fileChooser.getSelectedFile();
-            try {
-                FileReader fw = new FileReader(f);
-                for (int i = 0; i < length - 1; i++) {
-                    String a = ((Expression) expressionList.getComponent(i)).getExpression();
 
-                }
-                fw.close();
-            } catch (IOException ex) {
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            final Scanner sc;
+
+            try {
+                sc = new Scanner(fileChooser.getSelectedFile());
+            } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
+                return;
             }
+
+            while (sc.hasNextLine()) {
+                expressionList.addExpression(sc.nextLine());
+            }
+            sc.close();
         }
     }
 }
