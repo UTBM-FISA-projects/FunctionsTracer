@@ -52,6 +52,15 @@ public class Expression extends JPanel {
     }
 
     /**
+     * Retourne l'index de l'expression dans le graphique.
+     *
+     * @return Index de l'expression
+     */
+    public int getIndex() {
+        return index;
+    }
+
+    /**
      * Récupère l'expression affichée dans le champ texte.
      *
      * @return L'expression affichée
