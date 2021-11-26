@@ -48,18 +48,27 @@ public class ValueTableFrame extends JFrame {
         JPanel inputs = new JPanel();
         inputs.add(new JLabel("xmin"));
         xmin = new ValueTableSpinner();
-        xmin.addChangeListener(changeEvent -> table.revalidate());
+        xmin.addChangeListener(changeEvent -> {
+            table.revalidate();
+            table.repaint();
+        });
         inputs.add(xmin);
 
         inputs.add(new JLabel("xmax"));
         xmax = new ValueTableSpinner();
         xmax.setValue(10d);
-        xmax.addChangeListener(changeEvent -> table.revalidate());
+        xmax.addChangeListener(changeEvent -> {
+            table.revalidate();
+            table.repaint();
+        });
         inputs.add(xmax);
 
         inputs.add(new JLabel("pas"));
         step = new ValueTableSpinner();
-        step.addChangeListener(changeEvent -> table.revalidate());
+        step.addChangeListener(changeEvent -> {
+            table.revalidate();
+            table.repaint();
+        });
         inputs.add(step);
 
         JScrollPane scroll = new JScrollPane(
