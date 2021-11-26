@@ -27,7 +27,7 @@ public class SplashScreen extends JFrame {
         setVisible(true);
         synchronized (this) {
             try {
-                this.wait(4500);
+                this.wait((4800));
             } catch (InterruptedException ignored) {
             }
         }
