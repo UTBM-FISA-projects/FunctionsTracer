@@ -53,13 +53,12 @@ public class ValueTableFrame extends JFrame {
 
         inputs.add(new JLabel("xmax"));
         xmax = new ValueTableSpinner();
-        xmax.setValue(10);
+        xmax.setValue(10d);
         xmax.addChangeListener(changeEvent -> table.repaint());
         inputs.add(xmax);
 
         inputs.add(new JLabel("pas"));
         step = new ValueTableSpinner();
-        step.setValue(1);
         step.addChangeListener(changeEvent -> table.repaint());
         inputs.add(step);
 
@@ -79,11 +78,12 @@ public class ValueTableFrame extends JFrame {
 
         @Override
         public int getRowCount() {
-            int stepi = (Integer) step.getValue();
-            int mini = (Integer) xmin.getValue();
-            int maxi = (Integer) xmax.getValue();
+            final double stepi = (Double) step.getValue();
+            final double mini = (Double) xmin.getValue();
+            final double maxi = (Double) xmax.getValue();
+
             try {
-                return Math.abs(maxi - mini) / stepi + 1;
+                return (int) (Math.abs(maxi - mini) / stepi + 1);
             } catch (ArithmeticException ignored) {
                 return 0;
             }
@@ -111,7 +111,7 @@ public class ValueTableFrame extends JFrame {
 
         @Override
         public Object getValueAt(final int row, final int col) {
-            final int xAtRow = ((Integer) xmin.getValue()) + row * ((Integer) step.getValue());
+            final double xAtRow = ((Double) xmin.getValue()) + row * ((Double) step.getValue());
 
             if (col == 1) {
                 try {

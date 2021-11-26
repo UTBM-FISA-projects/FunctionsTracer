@@ -16,6 +16,6 @@ public class ValueTableSpinner extends JSpinner {
      */
     public ValueTableSpinner() {
         setPreferredSize(new Dimension(60, 30));
-        setModel(new SpinnerNumberModel());
+        setModel(new SpinnerNumberModel(1d, -Double.MAX_VALUE, Double.MAX_VALUE, 0.1));
     }
 }
