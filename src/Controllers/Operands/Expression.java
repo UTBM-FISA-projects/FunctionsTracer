@@ -122,6 +122,10 @@ public class Expression extends Operand {
     public String toString() {
         final String out;
 
+        if (operator == null) {
+            return firstOperand.toString();
+        }
+
         if (operator.arity() == Arity.UNARY) {
             out = String.format("%s(%s)", operator, firstOperand);
         } else if (operator.arity() == Arity.BINARY && operator instanceof Function) {
