@@ -103,6 +103,7 @@ public class Expression extends JPanel {
 
     private class ExpressionListener implements DocumentListener {
         @Override
+
         public void insertUpdate(final DocumentEvent documentEvent) {
             updateExpression();
         }
@@ -115,6 +116,7 @@ public class Expression extends JPanel {
         @Override
         public void changedUpdate(final DocumentEvent documentEvent) {
             updateExpression();
+
         }
     }
 }
