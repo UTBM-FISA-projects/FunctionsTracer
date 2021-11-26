@@ -25,7 +25,6 @@ public class Expression extends JPanel {
         this.graph = graph;
 
         setLayout(new FlowLayout());
-        textField = new TextField();
 
         //Bouton Choix couleur
         Image imgdel = getToolkit().getImage("resources/color.png");
@@ -36,6 +35,8 @@ public class Expression extends JPanel {
         add(delButton);
 
         //Textfield
+        textField = new TextField();
+        textField.setForeground(color);
         textField.getDocument().addDocumentListener(new ExpressionListener());
         add(textField);
 
@@ -94,6 +95,7 @@ public class Expression extends JPanel {
             );
             if (tmp != null) {
                 color = tmp;
+                textField.setForeground(color);
                 updateExpression();
             }
         }
