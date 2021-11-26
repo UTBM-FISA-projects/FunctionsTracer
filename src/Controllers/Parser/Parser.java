@@ -174,6 +174,7 @@ public class Parser {
      *
      * @return Un arbre représentant l'expression
      * @throws MismatchParenthesisException En cas de parenthèses non correspondantes
+     * @throws EmptyStackException          Si la chaine donnée en paramètre est vide
      * @throws MalformedExpressionException En cas d'expression mathématique incorrecte
      * @see <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm">Shunting yard algorythm</a>
      * @see <a href="https://fr.wikipedia.org/wiki/Algorithme_Shunting-yard">Algorithme de la gare de triage</a>

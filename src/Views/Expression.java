@@ -94,7 +94,7 @@ public class Expression extends JPanel {
         public void actionPerformed(ActionEvent e) {
             try {
                 new ValueTableFrame(new Parser(textField.getText()).parse());
-            } catch (MismatchParenthesisException | MalformedExpressionException ignored) {
+            } catch (MismatchParenthesisException | MalformedExpressionException | EmptyStackException ignored) {
             }
         }
     }
