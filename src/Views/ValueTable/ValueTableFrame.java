@@ -73,9 +73,9 @@ public class ValueTableFrame extends JFrame {
         inputs.add(step);
 
         JScrollPane scroll = new JScrollPane(
-                panel,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+            panel,
+            ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
         );
         mainPanel.add(scroll, BorderLayout.CENTER);
         mainPanel.add(inputs, BorderLayout.NORTH);
@@ -93,12 +93,12 @@ public class ValueTableFrame extends JFrame {
 
         @Override
         public int getRowCount() {
-            final double stepi = (Double) step.getValue();
-            final double mini = (Double) xmin.getValue();
-            final double maxi = (Double) xmax.getValue();
+            final double stepd = (Double) step.getValue();
+            final double mind = (Double) xmin.getValue();
+            final double maxd = (Double) xmax.getValue();
 
             try {
-                return (int) (Math.abs(maxi - mini) / stepi + 1);
+                return (int) (Math.abs(maxd - mind) / Math.abs(stepd) + 1);
             } catch (ArithmeticException ignored) {
                 return 0;
             }
@@ -126,7 +126,10 @@ public class ValueTableFrame extends JFrame {
 
         @Override
         public Object getValueAt(final int row, final int col) {
-            final double xAtRow = ((Double) xmin.getValue()) + row * ((Double) step.getValue());
+            final double start = (Double) xmin.getValue();
+            final double stop = (Double) xmax.getValue();
+            final double stepd = Math.abs((Double) step.getValue()) * (start < stop ? 1 : -1);
+            final double xAtRow = start + row * stepd;
 
             if (col == 1) {
                 try {
