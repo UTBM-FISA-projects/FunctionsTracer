@@ -84,15 +84,20 @@ public class Graph extends JPanel {
     }
 
     /**
-     * Retire une courbe du graphique.
+     * Retire une courbe du graphique, s'il ne reste qu'une courbe ne fait rien et renvoie false.
      *
      * @param code clé à supprimer
+     * @return false s'il reste moins d'une courbe, true sinon
      * @see #addExpression(int, Expression, Color)
      */
-    public void removeExpression(int code) {
+    public boolean removeExpression(int code) {
+        if (expressions.size() <= 1) return false;
+
         expressions.remove(code);
         colors.remove(code);
         repaint();
+
+        return true;
     }
 
     /**
