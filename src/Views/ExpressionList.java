@@ -15,7 +15,7 @@ public class ExpressionList extends JPanel implements ActionListener {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(new Expression(graph, new ActionDelete()));
 
-        addButton = new ExpressionButtons(getClass().getResource("plus.png"), 40, 40);
+        addButton = new ExpressionButtons(getClass().getResource("plus.png"), "Ajouter une expression", 40, 40);
         addButton.addActionListener(this);
         add(addButton);
     }

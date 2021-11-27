@@ -27,7 +27,7 @@ public class Expression extends JPanel {
         setLayout(new FlowLayout());
 
         //Bouton Choix couleur
-        JButton delButton = new ExpressionButtons(getClass().getResource("color.png"));
+        JButton delButton = new ExpressionButtons(getClass().getResource("color.png"), "Couleur de la courbe");
         delButton.addActionListener(new ActionColor());
         add(delButton);
 
@@ -38,14 +38,14 @@ public class Expression extends JPanel {
         add(textField);
 
         //Bouton Supprimer
-        JButton colorButton = new ExpressionButtons(getClass().getResource("trash.png"));
+        JButton colorButton = new ExpressionButtons(getClass().getResource("trash.png"), "Supprimer l'expression");
         actionDelete.setElement(this);
         colorButton.addActionListener(actionDelete);
         add(colorButton);
 
 
         //Bouton Tableau
-        JButton tabButton = new ExpressionButtons(getClass().getResource("table.png"));
+        JButton tabButton = new ExpressionButtons(getClass().getResource("table.png"), "Tableau de valeurs");
         tabButton.addActionListener(new ActionTable());
         add(tabButton);
 

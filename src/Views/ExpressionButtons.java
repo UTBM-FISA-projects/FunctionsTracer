@@ -16,8 +16,8 @@ public class ExpressionButtons extends JButton {
      * @param iconPath Chemin de l'icon
      * @author Kilian
      */
-    public ExpressionButtons(URL iconPath) {
-        this(iconPath, 20, 20);
+    public ExpressionButtons(URL iconPath, String tooltipText) {
+        this(iconPath, tooltipText, 20, 20);
     }
 
     /**
@@ -27,7 +27,7 @@ public class ExpressionButtons extends JButton {
      * @param iconWidth  Largeur de l'icon
      * @param iconHeight Hauteur de l'icon
      */
-    public ExpressionButtons(URL iconPath, int iconWidth, int iconHeight) {
+    public ExpressionButtons(URL iconPath, String tooltipText, int iconWidth, int iconHeight) {
         super();
 
         final Icon icon = new ImageIcon(
@@ -39,5 +39,6 @@ public class ExpressionButtons extends JButton {
         setBorderPainted(false);
         setFocusPainted(false);
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        setToolTipText(tooltipText);
     }
 }

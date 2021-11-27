@@ -15,7 +15,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         setIconImage(new ImageIcon(getClass().getResource("logoNoir.png")).getImage());
-        setMinimumSize(new Dimension(640, 360));
+        setMinimumSize(new Dimension(850, 480));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 
