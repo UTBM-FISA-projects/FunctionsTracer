@@ -4,6 +4,7 @@ import Controllers.Operands.Expression;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +28,14 @@ public class Graph extends JPanel {
      * @see #drawAxes(Graphics2D)
      */
     private static final short X_MIN_UNIT = 40;
+    private static final short X_MAX_UNIT = 100;
     /**
      * Nombre minimal de pixels dans une unité en ordonnée.
      *
      * @see #drawAxes(Graphics2D)
      */
     private static final short Y_MIN_UNIT = 30;
+    private static final short Y_MAX_UNIT = 90;
 
     /**
      * Couleur des courbes dessinées.
@@ -244,26 +247,22 @@ public class Graph extends JPanel {
      * @param g Graphics2D pour dessiner
      */
     private void drawAxes(Graphics2D g) {
-        int yFactor = 1, xFactor = 1;
+        double yFactor = 1, xFactor = 1;
 
-        while (p.pixelPerYUnit < Y_MIN_UNIT) {
-            p.pixelPerYUnit *= 2;
-            yFactor *= 2;
-        }
+        while (p.pixelPerYUnit * yFactor < Y_MIN_UNIT) yFactor *= 2;
+        while (p.pixelPerYUnit * yFactor > Y_MAX_UNIT) yFactor /= 2;
 
-        while (p.pixelPerXUnit < X_MIN_UNIT) {
-            p.pixelPerXUnit *= 2;
-            xFactor *= 2;
-        }
+        while (p.pixelPerXUnit * xFactor < X_MIN_UNIT) xFactor *= 2;
+        while (p.pixelPerXUnit * xFactor > X_MAX_UNIT) xFactor /= 2;
 
         double index = p.xMin;
 
         // abscisses
         g.drawLine(0, 0, getWidth(), 0);
         // graduation
-        for (double i = p.pixelPerXUnit; i < getWidth(); i += p.pixelPerXUnit) {
+        for (double i = p.pixelPerXUnit * xFactor; i < getWidth(); i += p.pixelPerXUnit * xFactor) {
             g.drawLine((int) i, -10, (int) i, 10);
-            g.drawString(String.format("%.0f", index += xFactor), (int) i - 5, -15);
+            g.drawString(String.format("%s", new DecimalFormat().format(index += xFactor)), (int) i - 5, -15);
         }
 
         index = p.yMax;
@@ -271,9 +270,9 @@ public class Graph extends JPanel {
         // ordonnées
         g.drawLine(getWidth() / 2, -getHeight() / 2, getWidth() / 2, getHeight());
         // graduation
-        for (double i = -getHeight() / 2. + p.pixelPerYUnit; i < getHeight(); i += p.pixelPerYUnit) {
+        for (double i = -getHeight() / 2. + p.pixelPerYUnit * yFactor; i < getHeight(); i += p.pixelPerYUnit * yFactor) {
             g.drawLine(getWidth() / 2 - 10, (int) i, getWidth() / 2 + 10, (int) i);
-            g.drawString(String.format("%.0f", index -= yFactor), getWidth() / 2 + 15, (int) i + 2);
+            g.drawString(String.format("%s", new DecimalFormat().format(index -= yFactor)), getWidth() / 2 + 15, (int) i + 2);
         }
     }
 
