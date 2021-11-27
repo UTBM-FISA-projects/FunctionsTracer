@@ -19,7 +19,7 @@ public class ValueTableSpinner extends JSpinner {
     /**
      * Créé les JSpinner nécessaire pour le bouton de la table des valeurs
      *
-     * @author Kilian GOËTZ
+     * @param defaultValue Valeur par défaut
      */
     public ValueTableSpinner(double defaultValue) {
         setPreferredSize(new Dimension(60, 30));
