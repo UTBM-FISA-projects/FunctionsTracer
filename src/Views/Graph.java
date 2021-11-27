@@ -28,6 +28,9 @@ public class Graph extends JPanel {
      * @see #drawAxes(Graphics2D)
      */
     private static final short X_MIN_UNIT = 40;
+    /**
+     * Nombre maximal de pixels dans une unité en abscisse.
+     */
     private static final short X_MAX_UNIT = 100;
     /**
      * Nombre minimal de pixels dans une unité en ordonnée.
@@ -35,6 +38,9 @@ public class Graph extends JPanel {
      * @see #drawAxes(Graphics2D)
      */
     private static final short Y_MIN_UNIT = 30;
+    /**
+     * Nombre maximal de pixels dans une unité en ordonnée.
+     */
     private static final short Y_MAX_UNIT = 90;
 
     /**
