@@ -17,13 +17,15 @@ import java.io.IOException;
  */
 public class MenuItemExport extends JMenuItem implements ActionListener {
 
+    /**
+     * Liste d'expression à exporter
+     */
     private final ExpressionList expressionList;
 
     /**
      * Créer le sous-menu enregistrer-sous
      *
      * @param expressionList Liste d'expression sur laquelle interagir
-     * @author Kilian GOËTZ
      */
     public MenuItemExport(ExpressionList expressionList) {
         super("Exporter");
@@ -32,10 +34,9 @@ public class MenuItemExport extends JMenuItem implements ActionListener {
     }
 
     /**
-     * écris un fichier texte avec les expressions
+     * Sauvegarde les expressions dans un fichier texte.
      *
      * @param e ActionEvent
-     * @author Kilian GOËTZ
      */
     @Override
     public void actionPerformed(ActionEvent e) {
