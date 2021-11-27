@@ -4,18 +4,37 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Représente une liste d'expression avec un bouton d'ajout et une barre de défilement.
+ *
+ * @author Kilian GOËTZ
+ */
 public class ExpressionList extends JPanel implements ActionListener {
-
+    /**
+     * Bouton d'ajout d'expression.
+     */
     private final JButton addButton;
+    /**
+     * Graphique avec les courbes correspondantes.
+     */
     private final Graph graph;
 
+    /**
+     * Créé une liste d'expressions avec un graphique associé.
+     *
+     * @param graph Graphique affichant les courbes associées
+     */
     public ExpressionList(Graph graph) {
         this.graph = graph;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(new Expression(graph, new ActionDelete()));
 
-        addButton = new ExpressionButtons(getClass().getResource("plus.png"), "Ajouter une expression", 40, 40);
+        addButton = new ExpressionButtons(
+            "Ajouter une expression", getClass().getResource("plus.png"),
+            40,
+            40
+        );
         addButton.addActionListener(this);
         add(addButton);
     }
@@ -35,6 +54,11 @@ public class ExpressionList extends JPanel implements ActionListener {
         revalidate();
     }
 
+    /**
+     * Action pour ajouter une expression à la liste.
+     *
+     * @param e inutilisé
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         remove(addButton);

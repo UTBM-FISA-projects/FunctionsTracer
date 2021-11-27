@@ -12,12 +12,32 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.EmptyStackException;
 
+/**
+ * Représente l'ensemble des boutons liés à une expression et un champ texte.
+ *
+ * @author Kilian GOËTZ
+ */
 public class Expression extends JPanel {
 
+    /**
+     * Champ texte contenant l'expression
+     */
     private final TextField textField;
+    /**
+     * Graphique sur lequel interagir.
+     */
     private final Graph graph;
+    /**
+     * Couleur de la courbe. Par défaut rouge.
+     */
     private Color color = Color.RED;
 
+    /**
+     * Créé un panel contenant tous les éléments d'une expression.
+     *
+     * @param graph        Graphique sur lequel tracer les courbes.
+     * @param actionDelete Action à effectuer à la suppression
+     */
     public Expression(Graph graph, ExpressionList.ActionDelete actionDelete) {
         super();
 
@@ -26,25 +46,29 @@ public class Expression extends JPanel {
         setLayout(new FlowLayout());
 
         //Bouton Choix couleur
-        JButton delButton = new ExpressionButtons(getClass().getResource("color.png"), "Couleur de la courbe");
+        JButton delButton = new ExpressionButtons("Couleur de la courbe", getClass().getResource("color.png"));
         delButton.addActionListener(new ActionColor());
         add(delButton);
 
         //Textfield
         textField = new TextField();
         textField.setForeground(color);
+        // écoute les changements
         textField.getDocument().addDocumentListener(new ExpressionListener());
         add(textField);
 
         //Bouton Supprimer
-        JButton colorButton = new ExpressionButtons(getClass().getResource("trash.png"), "Supprimer l'expression");
+        JButton colorButton = new ExpressionButtons(
+            "Supprimer l'expression", getClass().getResource("trash.png")
+        );
         actionDelete.setElement(this);
         colorButton.addActionListener(actionDelete);
         add(colorButton);
 
-
         //Bouton Tableau
-        JButton tabButton = new ExpressionButtons(getClass().getResource("table.png"), "Tableau de valeurs");
+        JButton tabButton = new ExpressionButtons(
+            "Tableau de valeurs", getClass().getResource("table.png")
+        );
         tabButton.addActionListener(new ActionTable());
         add(tabButton);
     }
@@ -67,6 +91,12 @@ public class Expression extends JPanel {
         textField.setText(expression);
     }
 
+    /**
+     * Met à jour la courbe correspondante à l'expression.
+     *
+     * @see Graph
+     * @see Parser
+     */
     private void updateExpression() {
         try {
             Parser parser = new Parser(textField.getText());
@@ -77,7 +107,17 @@ public class Expression extends JPanel {
         }
     }
 
+    /**
+     * Action pour le tableau de valeurs.
+     *
+     * @author Kilian GOËTZ
+     */
     private class ActionTable extends AbstractAction {
+        /**
+         * Affiche le tableau de valeurs correspondant à l'expression entrée.
+         *
+         * @param e inutilisé
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -87,7 +127,18 @@ public class Expression extends JPanel {
         }
     }
 
+    /**
+     * Action pour choisir la couleur de la courbe d'une expression.
+     *
+     * @author Kilian GOËTZ
+     * @author Valentin DOREAU
+     */
     private class ActionColor extends AbstractAction {
+        /**
+         * Affiche une fenêtre pour choisir une couleur puis défini la couleur de la courbe.
+         *
+         * @param e inutilisé
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             final Color tmp = JColorChooser.showDialog(
@@ -103,22 +154,43 @@ public class Expression extends JPanel {
         }
     }
 
+    /**
+     * Écoute les changements du champ contenant l'expression.
+     *
+     * @author Valentin DOREAU
+     */
     private class ExpressionListener implements DocumentListener {
+        /**
+         * Écoute les évènements d'insertion.
+         *
+         * @param documentEvent inutilisé
+         * @see #updateExpression()
+         */
         @Override
-
         public void insertUpdate(final DocumentEvent documentEvent) {
             updateExpression();
         }
 
+        /**
+         * Écoute les évènements de suppression.
+         *
+         * @param documentEvent inutilisé
+         * @see #updateExpression()
+         */
         @Override
         public void removeUpdate(final DocumentEvent documentEvent) {
             updateExpression();
         }
 
+        /**
+         * Écoute les évènements de changements (coller par exemple).
+         *
+         * @param documentEvent inutilisé
+         * @see #updateExpression()
+         */
         @Override
         public void changedUpdate(final DocumentEvent documentEvent) {
             updateExpression();
-
         }
     }
 }

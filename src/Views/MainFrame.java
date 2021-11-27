@@ -6,8 +6,18 @@ import Views.ValueTable.ValueTableSpinner;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Représente la fenêtre principale de l'application.
+ *
+ * @author Kilian GOËTZ
+ */
 public class MainFrame extends JFrame {
 
+    /**
+     * Créé la fenêtre principale de FunctionTracer.<br>
+     * Affiche une liste d'expressions et un graphique avec ses limites.<br>
+     * Appeler {@link #setVisible(boolean)} pour afficher la fenêtre.
+     */
     public MainFrame() {
         super("Functions Tracer");
 

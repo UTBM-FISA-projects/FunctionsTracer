@@ -37,7 +37,7 @@ public class SplashScreen extends JFrame {
     /**
      * Permet de stopper l'animation en appuyant sur entrée
      *
-     * @param e
+     * @param e inutilisé
      * @author Kilian GOËTZ
      */
     @Override

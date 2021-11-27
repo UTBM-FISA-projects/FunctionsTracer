@@ -13,21 +13,23 @@ public class ExpressionButtons extends JButton {
     /**
      * Créé les différents boutons pour les expressions et celui pour ajouter des expressions
      *
-     * @param iconPath Chemin de l'icon
+     * @param tooltipText Texte à afficher au survol de la souris
+     * @param iconPath    Chemin de l'icon
      * @author Kilian
      */
-    public ExpressionButtons(URL iconPath, String tooltipText) {
-        this(iconPath, tooltipText, 20, 20);
+    public ExpressionButtons(String tooltipText, URL iconPath) {
+        this(tooltipText, iconPath, 20, 20);
     }
 
     /**
      * Créé un bouton d'expression.
      *
-     * @param iconPath   Chemin de l'icon
-     * @param iconWidth  Largeur de l'icon
-     * @param iconHeight Hauteur de l'icon
+     * @param tooltipText Texte à afficher au survol de la souris
+     * @param iconPath    Chemin de l'icon
+     * @param iconWidth   Largeur de l'icon
+     * @param iconHeight  Hauteur de l'icon
      */
-    public ExpressionButtons(URL iconPath, String tooltipText, int iconWidth, int iconHeight) {
+    public ExpressionButtons(String tooltipText, URL iconPath, int iconWidth, int iconHeight) {
         super();
 
         final Icon icon = new ImageIcon(

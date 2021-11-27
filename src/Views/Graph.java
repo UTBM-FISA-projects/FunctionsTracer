@@ -174,9 +174,11 @@ public class Graph extends JPanel {
     }
 
     /**
-     * Dessine les courbes des fonctions.
+     * Dessine les courbes des fonctions.<br>
+     * Met à jour les paramètres de dessin en premier.
      *
      * @param G Graphics de dessin
+     * @see GraphParameters#update()
      */
     @Override
     public void paintComponent(final Graphics G) {
@@ -286,6 +288,13 @@ public class Graph extends JPanel {
         return (-y + (p.yMax + p.yMin) / 2) * p.pixelPerYUnit;
     }
 
+    /**
+     * Wrapper pour les paramètres de dessin du graphique.<br>
+     * Évite de recalculer les paramètres entre les différentes fonctions de dessins.
+     *
+     * @author Valentin DOREAU
+     * @see Graph
+     */
     private class GraphParameters {
         /**
          * Abscisse minimum du graphique.
@@ -318,6 +327,14 @@ public class Graph extends JPanel {
          */
         private double unitPerXPixel;
 
+        /**
+         * Créé un objet contenant tous les paramètres de dessin du {@link Graph}.
+         *
+         * @param xMin abscisse minimum du graphique
+         * @param xMax abscisse maximum du graphique
+         * @param yMin ordonnée minimum du graphique
+         * @param yMax ordonnée maximum du graphique
+         */
         public GraphParameters(final double xMin, final double xMax, final double yMin, final double yMax) {
             this.xMin = xMin;
             this.xMax = xMax;
@@ -326,18 +343,32 @@ public class Graph extends JPanel {
             update();
         }
 
+        /**
+         * Recalcule les paramètres de dessins.<br>
+         * Utilise en cas de redimensionnement ou de changement de limite du graphique.
+         */
         public void update() {
             pixelPerXUnit = getWidth() / Math.abs(xMax - xMin);
             pixelPerYUnit = getHeight() / Math.abs(yMax - yMin);
             unitPerXPixel = Math.abs(xMax - xMin) / getWidth();
         }
 
-        public boolean yReverse() {
-            return yMax < yMin;
-        }
-
+        /**
+         * Détermine si l'axe des abscisses est renversé.
+         *
+         * @return true si xMax est strictement plus petit que xMin, false sinon
+         */
         public boolean xReverse() {
             return xMax < xMin;
+        }
+
+        /**
+         * Détermine si l'axe des ordonnées est renversé.
+         *
+         * @return true si yMax est strictement plus petit que yMin, false sinon
+         */
+        public boolean yReverse() {
+            return yMax < yMin;
         }
     }
 }
