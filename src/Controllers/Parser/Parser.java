@@ -66,7 +66,7 @@ public class Parser {
     /**
      * Créé un parser sur une expression mathématique.
      *
-     * @param expression Views.Expression à traiter
+     * @param expression Expression à traiter
      */
     public Parser(final String expression) {
         updateExpression(expression);
@@ -110,7 +110,7 @@ public class Parser {
     /**
      * Met à jour la file de tokens représentant l'expression.
      *
-     * @param expression Views.Expression à parser
+     * @param expression Expression à parser
      */
     public void updateExpression(final String expression) {
         tokenize(
@@ -123,7 +123,7 @@ public class Parser {
     /**
      * Transforme un String en file de token.
      *
-     * @param expression Views.Expression mathématique à parser
+     * @param expression Expression mathématique à parser
      * @see <a href="https://en.wikipedia.org/wiki/Lexical_analysis#Token">Lexical analysis</a>
      */
     private void tokenize(String expression) {

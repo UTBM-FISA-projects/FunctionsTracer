@@ -5,7 +5,7 @@ import java.awt.*;
 import java.net.URL;
 
 /**
- * Représente les différents boutons associés aux espressions
+ * Représente les différents boutons associés aux expressions.
  *
  * @author Kilian GOËTZ
  */

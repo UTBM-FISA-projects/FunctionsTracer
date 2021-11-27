@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Représente JSpinner nécessaire pour le boutton de la table des valeurs
+ * Représente JSpinner nécessaire pour le button de la table des valeurs.
  *
  * @author Kilian GOËTZ
  */

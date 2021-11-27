@@ -118,10 +118,15 @@ public class Expression extends Operand {
 
     /**
      * Affiche l'expression sous forme d'arbre dans le terminal.<br>
-     * Experimental, debugging purposes only.
+     * Experimental (peut ne pas complètement fonctionner), debugging purposes only.
+     * <p>
+     * Ne fonctionne pas dans le terminal des IDEs IntelliJ à cause des codes ANSI.
      *
      * @param x abscisse du premier élément
      * @param y ordonnée du premier élément
+     * @see <a href="https://en.wikipedia.org/wiki/ANSI_escape_code#CSI_(Control_Sequence_Introducer)_sequences">
+     * ANSI escape code
+     * </a>
      */
     @Override
     public void debug(int x, int y) {

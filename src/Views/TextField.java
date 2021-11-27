@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Représente le champs texte ou l'on rentre les expréssions
+ * Représente le champ texte ou l'on rentre les expressions.
  *
  * @author Kilian GOËTZ
  */

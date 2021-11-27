@@ -12,6 +12,8 @@ import java.io.IOException;
 
 /**
  * Représente le menu exporter le graphique.
+ *
+ * @author Valentin DOREAU
  */
 public class MenuItemExportGraph extends JMenuItem implements ActionListener {
     /**
