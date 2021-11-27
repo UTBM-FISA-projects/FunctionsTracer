@@ -4,8 +4,6 @@ import Controllers.Operators.Functions.Function;
 import Controllers.Operators.Operator;
 import Controllers.Operators.Properties.Arity;
 
-import java.util.ArrayList;
-
 /**
  * Représente une expression mathématique sous forme d'arbre.
  *
@@ -58,25 +56,6 @@ public class Expression extends Operand {
         this.firstOperand = firstOperand;
         this.secondOperand = null;
         this.operator = operator;
-    }
-
-    /**
-     * Calcule une liste de Y pour tout les X entre {@code min} et {@code max} (tout deux inclus) avec un pas
-     * de {@code step}.
-     *
-     * @param min  X minimum
-     * @param max  X maximum
-     * @param step pas entre chaque X
-     * @return Une liste de Y
-     */
-    public ArrayList<Double> calculateFor(double min, double max, double step) {
-        ArrayList<Double> ys = new ArrayList<>();
-
-        for (double i = min; i <= max; i += step) {
-            ys.add(this.calculate(i).toDouble());
-        }
-
-        return ys;
     }
 
     /**

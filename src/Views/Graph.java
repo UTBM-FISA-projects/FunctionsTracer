@@ -5,7 +5,6 @@ import Controllers.Operands.Expression;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import static java.lang.Double.NaN;
@@ -195,7 +194,6 @@ public class Graph extends JPanel {
 
         g.setStroke(new BasicStroke(1.5f));
 
-        Iterator<Map.Entry<Integer, Expression>> iterator = expressions.entrySet().iterator();
         Expression fc;
 
         // Pour chaque fonction ...
@@ -314,10 +312,6 @@ public class Graph extends JPanel {
          * Nombre d'unités dans un pixel en X.
          */
         private double unitPerXPixel;
-        /**
-         * Nombre d'unités dans un pixel en Y.
-         */
-        private double unitPerYPixel;
 
         public GraphParameters(final double xMin, final double xMax, final double yMin, final double yMax) {
             this.xMin = xMin;
@@ -331,7 +325,6 @@ public class Graph extends JPanel {
             pixelPerXUnit = getWidth() / Math.abs(xMax - xMin);
             pixelPerYUnit = getHeight() / Math.abs(yMax - yMin);
             unitPerXPixel = Math.abs(xMax - xMin) / getWidth();
-            unitPerYPixel = Math.abs(yMax - yMin) / getHeight();
         }
 
         public boolean yReverse() {

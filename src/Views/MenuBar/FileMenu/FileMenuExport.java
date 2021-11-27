@@ -4,7 +4,6 @@ import Views.Expression;
 import Views.ExpressionList;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -18,13 +17,12 @@ import java.io.IOException;
  */
 public class FileMenuExport extends JMenuItem implements ActionListener {
 
-    private Image img;
-    private ExpressionList expressionList;
+    private final ExpressionList expressionList;
 
     /**
      * Créer le sous-menu enregistrer-sous
      *
-     * @param expressionList
+     * @param expressionList Liste d'expression sur laquelle interagir
      * @author Kilian GOËTZ
      */
     public FileMenuExport(ExpressionList expressionList) {
