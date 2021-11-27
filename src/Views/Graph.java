@@ -43,21 +43,9 @@ public class Graph extends JPanel {
     private final ArrayList<Expression> expressions;
 
     /**
-     * Abscisse minimum du graphique.
+     * Paramètres du graphique
      */
-    private double xMin;
-    /**
-     * Abscisse maximum du graphique.
-     */
-    private double xMax;
-    /**
-     * Ordonnée minimum du graphique.
-     */
-    private double yMin;
-    /**
-     * Ordonnée maximum du graphique.
-     */
-    private double yMax;
+    private final GraphParameters p;
 
     /**
      * Construit un graphique de -10 à 10 en abscisse et en ordonné.
@@ -76,10 +64,7 @@ public class Graph extends JPanel {
      */
     public Graph(final double xMin, final double xMax, final double yMin, final double yMax) {
         super();
-        this.xMin = xMin;
-        this.xMax = xMax;
-        this.yMin = yMin;
-        this.yMax = yMax;
+        p = new GraphParameters(xMin, xMax, yMin, yMax);
         expressions = new ArrayList<>();
         colors = new ArrayList<>();
     }
@@ -131,7 +116,7 @@ public class Graph extends JPanel {
      * @param xMin X minimum
      */
     public void setXMin(final double xMin) {
-        this.xMin = xMin;
+        p.xMin = xMin;
         repaint();
     }
 
@@ -141,7 +126,7 @@ public class Graph extends JPanel {
      * @param xMax X maximum
      */
     public void setXMax(final double xMax) {
-        this.xMax = xMax;
+        p.xMax = xMax;
         repaint();
     }
 
@@ -151,7 +136,7 @@ public class Graph extends JPanel {
      * @param yMin Y minimum
      */
     public void setYMin(final double yMin) {
-        this.yMin = yMin;
+        p.yMin = yMin;
         repaint();
     }
 
@@ -161,7 +146,7 @@ public class Graph extends JPanel {
      * @param yMax Y maximum
      */
     public void setYMax(final double yMax) {
-        this.yMax = yMax;
+        p.yMax = yMax;
         repaint();
     }
 
@@ -178,12 +163,10 @@ public class Graph extends JPanel {
      * @see #paintComponent(Graphics)
      */
     private void fillGap(double x1, double y1, double x2, double y2, Expression fc, Graphics2D g) {
-        final double step = (Math.abs(xMin) + Math.abs(xMax)) / getWidth();
-
         double y3, x3 = (x1 + x2) / 2;
 
         try {
-            y3 = translateY(fc.calculate(xMin + step * x3).toDouble());
+            y3 = translateY(fc.calculate(p.xMin + p.unitPerXPixel * x3).toDouble());
         } catch (ArithmeticException e) {
             return;
         }
@@ -211,13 +194,10 @@ public class Graph extends JPanel {
         Graphics2D g = (Graphics2D) G;
         g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
 
-        final int H = this.getHeight();
-        final int W = this.getWidth();
+        p.update();
 
-        g.translate(0, H / 2);
+        g.translate(0, getHeight() / 2);
         drawAxes(g);
-
-        final double step = (Math.abs(xMin) + Math.abs(xMax)) / W;
 
         g.setStroke(new BasicStroke(1.5f));
 
@@ -230,8 +210,8 @@ public class Graph extends JPanel {
             g.setColor(colors.get(j));
 
             // ... on parcourt la largeur du panel pixel par pixel
-            for (int i = 1; i < W; i++) {
-                point = xMin + step * i;
+            for (int i = 1; i < getWidth(); i++) {
+                point = p.xMin + p.unitPerXPixel * i;
 
                 try {
                     y = translateY(fc.calculate(point).toDouble());
@@ -262,42 +242,36 @@ public class Graph extends JPanel {
      * @param g Graphics2D pour dessiner
      */
     private void drawAxes(Graphics2D g) {
-        final int H = this.getHeight();
-        final int W = this.getWidth();
-
-        double pixelPerYUnit = H / Math.abs(yMin - yMax);
-        double pixelPerXUnit = W / Math.abs(xMin - xMax);
-
         int yFactor = 1, xFactor = 1;
 
-        while (pixelPerYUnit < Y_MIN_UNIT) {
-            pixelPerYUnit *= 2;
+        while (p.pixelPerYUnit < Y_MIN_UNIT) {
+            p.pixelPerYUnit *= 2;
             yFactor *= 2;
         }
 
-        while (pixelPerXUnit < X_MIN_UNIT) {
-            pixelPerXUnit *= 2;
+        while (p.pixelPerXUnit < X_MIN_UNIT) {
+            p.pixelPerXUnit *= 2;
             xFactor *= 2;
         }
 
-        double index = xMin;
+        double index = p.xMin;
 
         // abscisses
-        g.drawLine(0, 0, W, 0);
+        g.drawLine(0, 0, getWidth(), 0);
         // graduation
-        for (double i = pixelPerXUnit; i < W; i += pixelPerXUnit) {
+        for (double i = p.pixelPerXUnit; i < getWidth(); i += p.pixelPerXUnit) {
             g.drawLine((int) i, -10, (int) i, 10);
             g.drawString(String.format("%.0f", index += xFactor), (int) i - 5, -15);
         }
 
-        index = yMax;
+        index = p.yMax;
 
         // ordonnées
-        g.drawLine(W / 2, -H / 2, W / 2, H);
+        g.drawLine(getWidth() / 2, -getHeight() / 2, getWidth() / 2, getHeight());
         // graduation
-        for (double i = -H / 2. + pixelPerYUnit; i < H; i += pixelPerYUnit) {
-            g.drawLine(W / 2 - 10, (int) i, W / 2 + 10, (int) i);
-            g.drawString(String.format("%.0f", index -= yFactor), W / 2 + 15, (int) i + 2);
+        for (double i = -getHeight() / 2. + p.pixelPerYUnit; i < getHeight(); i += p.pixelPerYUnit) {
+            g.drawLine(getWidth() / 2 - 10, (int) i, getWidth() / 2 + 10, (int) i);
+            g.drawString(String.format("%.0f", index -= yFactor), getWidth() / 2 + 15, (int) i + 2);
         }
     }
 
@@ -309,7 +283,62 @@ public class Graph extends JPanel {
      * @return L'ordonnée traduite
      */
     private double translateY(double y) {
-        final double vunit = getHeight() / Math.abs(yMin - yMax);
-        return (-y + (yMax + yMin) / 2) * vunit;
+        return ((p.yReverse() ? 1 : -1) * y + (p.yMax + p.yMin) / 2) * p.pixelPerYUnit;
+    }
+
+    private class GraphParameters {
+        /**
+         * Abscisse minimum du graphique.
+         */
+        private double xMin;
+        /**
+         * Abscisse maximum du graphique.
+         */
+        private double xMax;
+        /**
+         * Ordonnée minimum du graphique.
+         */
+        private double yMin;
+        /**
+         * Ordonnée maximum du graphique.
+         */
+        private double yMax;
+
+        /**
+         * Nombre de pixels dans une unité en X.
+         */
+        private double pixelPerXUnit;
+        /**
+         * Nombre de pixels dans une unité en Y.
+         */
+        private double pixelPerYUnit;
+
+        /**
+         * Nombre d'unités dans un pixel en X.
+         */
+        private double unitPerXPixel;
+        /**
+         * Nombre d'unités dans un pixel en Y.
+         */
+        private double unitPerYPixel;
+
+        public GraphParameters(final double xMin, final double xMax, final double yMin, final double yMax) {
+            this.xMin = xMin;
+            this.xMax = xMax;
+            this.yMin = yMin;
+            this.yMax = yMax;
+            update();
+        }
+
+        public void update() {
+            pixelPerXUnit = getWidth() / Math.abs(xMax - xMin);
+            pixelPerYUnit = getHeight() / Math.abs(yMax - yMin);
+            unitPerXPixel = Math.abs(xMax - xMin) / getWidth();
+            unitPerYPixel = Math.abs(yMax - yMin) / getHeight();
+        }
+
+        public boolean yReverse() {
+            return yMax < yMin;
+        }
     }
 }
