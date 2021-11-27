@@ -73,8 +73,7 @@ public class ExpressionList extends JPanel implements ActionListener {
             if (element != null) {
                 remove(element);
                 revalidate();
-                graph.removeExpression(element.getIndex());
-                graph.repaint();
+                graph.removeExpression(element.hashCode());
             }
         }
     }

@@ -48,7 +48,7 @@ public class FileMenuExport extends JMenuItem implements ActionListener {
             try {
                 FileWriter fw = new FileWriter(f, true);
                 for (int i = 0; i < length - 1; i++) {
-                    String a = ((Expression) expressionList.getComponent(i)).getExpression();
+                    String a = ((Expression) expressionList.getComponent(i)).getText();
                     fw.append(a).append("\r\n");
                 }
                 fw.close();

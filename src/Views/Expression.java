@@ -16,7 +16,6 @@ public class Expression extends JPanel {
 
     private final TextField textField;
     private final Graph graph;
-    private int index = -1;
     private Color color = Color.RED;
 
     public Expression(Graph graph, ExpressionList.ActionDelete actionDelete) {
@@ -48,16 +47,6 @@ public class Expression extends JPanel {
         JButton tabButton = new ExpressionButtons(getClass().getResource("table.png"), "Tableau de valeurs");
         tabButton.addActionListener(new ActionTable());
         add(tabButton);
-
-    }
-
-    /**
-     * Retourne l'index de l'expression dans le graphique.
-     *
-     * @return Index de l'expression
-     */
-    public int getIndex() {
-        return index;
     }
 
     /**
@@ -65,7 +54,7 @@ public class Expression extends JPanel {
      *
      * @return L'expression affichée
      */
-    public String getExpression() {
+    public String getText() {
         return textField.getText();
     }
 
@@ -81,11 +70,10 @@ public class Expression extends JPanel {
     private void updateExpression() {
         try {
             Parser parser = new Parser(textField.getText());
-            Controllers.Operands.Expression expr = parser.parse();
-            index = graph.addExpression(index, expr, color);
+            final Controllers.Operands.Expression expr = parser.parse();
+            graph.addExpression(hashCode(), expr, color);
         } catch (MismatchParenthesisException | MalformedExpressionException | EmptyStackException ignored) {
-            graph.removeExpression(index);
-            index = -1;
+            graph.removeExpression(hashCode());
         }
     }
 

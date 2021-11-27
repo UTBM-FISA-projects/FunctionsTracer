@@ -4,7 +4,9 @@ import Controllers.Operands.Expression;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import static java.lang.Double.NaN;
 
@@ -36,11 +38,11 @@ public class Graph extends JPanel {
     /**
      * Couleur des courbes dessinées.
      */
-    private final ArrayList<Color> colors;
+    private final Map<Integer, Color> colors;
     /**
      * Courbes dessinées
      */
-    private final ArrayList<Expression> expressions;
+    private final Map<Integer, Expression> expressions;
 
     /**
      * Paramètres du graphique
@@ -65,49 +67,33 @@ public class Graph extends JPanel {
     public Graph(final double xMin, final double xMax, final double yMin, final double yMax) {
         super();
         p = new GraphParameters(xMin, xMax, yMin, yMax);
-        expressions = new ArrayList<>();
-        colors = new ArrayList<>();
+        expressions = new HashMap<>();
+        colors = new HashMap<>();
     }
 
     /**
      * Ajoute une expression et sa couleur au graphique.
      *
-     * @param index index de l'expression à modifier, -1 si c'est une nouvelle expression
+     * @param code  Clé sous laquelle stocker l'expression et la couleur
      * @param e     Expression
      * @param color Couleur de la courbe
-     * @return L'index de l'expression
      */
-    public int addExpression(int index, final Expression e, final Color color) {
-        final int pos;
-
-        if (index < 0) {
-            expressions.add(e);
-            colors.add(color);
-            pos = expressions.size() - 1;
-        } else {
-            expressions.remove(index);
-            expressions.add(index, e);
-            colors.remove(index);
-            colors.add(index, color);
-            pos = index;
-        }
-
+    public void addExpression(int code, final Expression e, final Color color) {
+        expressions.put(code, e);
+        colors.put(code, color);
         repaint();
-        return pos;
     }
 
     /**
      * Retire une courbe du graphique.
      *
-     * @param index Index de la courbe à retirer
+     * @param code clé à supprimer
      * @see #addExpression(int, Expression, Color)
      */
-    public void removeExpression(int index) {
-        if (index >= 0) {
-            expressions.remove(index);
-            colors.remove(index);
-            repaint();
-        }
+    public void removeExpression(int code) {
+        expressions.remove(code);
+        colors.remove(code);
+        repaint();
     }
 
     /**
@@ -209,13 +195,16 @@ public class Graph extends JPanel {
 
         g.setStroke(new BasicStroke(1.5f));
 
+        Iterator<Map.Entry<Integer, Expression>> iterator = expressions.entrySet().iterator();
+        Expression fc;
+
         // Pour chaque fonction ...
-        for (int j = 0; j < expressions.size(); j++) {
-            final Expression fc = expressions.get(j);
+        for (final Map.Entry<Integer, Expression> entry : expressions.entrySet()) {
+            fc = entry.getValue();
 
             double point, y, lastY = NaN;
 
-            g.setColor(colors.get(j));
+            g.setColor(colors.get(entry.getKey()));
 
             // ... on parcourt la largeur du panel pixel par pixel
             for (int i = 1; i < getWidth(); i++) {
