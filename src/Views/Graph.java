@@ -126,15 +126,6 @@ public class Graph extends JPanel {
     }
 
     /**
-     * Récupère l'abscisse minimum du graphique.
-     *
-     * @return X minimum
-     */
-    public double getXMin() {
-        return xMin;
-    }
-
-    /**
      * Défini l'abscisse minimum du graphique et le repeint.
      *
      * @param xMin X minimum
@@ -142,15 +133,6 @@ public class Graph extends JPanel {
     public void setXMin(final double xMin) {
         this.xMin = xMin;
         repaint();
-    }
-
-    /**
-     * Récupère l'abscisse maximum du graphique.
-     *
-     * @return X maximum
-     */
-    public double getXMax() {
-        return xMax;
     }
 
     /**
@@ -164,15 +146,6 @@ public class Graph extends JPanel {
     }
 
     /**
-     * Récupère l'ordonnée minimum du graphique.
-     *
-     * @return Y minimum
-     */
-    public double getYMin() {
-        return yMin;
-    }
-
-    /**
      * Défini l'ordonnée minimum du graphique et le repeint.
      *
      * @param yMin Y minimum
@@ -180,15 +153,6 @@ public class Graph extends JPanel {
     public void setYMin(final double yMin) {
         this.yMin = yMin;
         repaint();
-    }
-
-    /**
-     * Récupère l'ordonnée maximum du graphique.
-     *
-     * @return Y maximum
-     */
-    public double getYMax() {
-        return yMax;
     }
 
     /**
@@ -214,13 +178,12 @@ public class Graph extends JPanel {
      * @see #paintComponent(Graphics)
      */
     private void fillGap(double x1, double y1, double x2, double y2, Expression fc, Graphics2D g) {
-        final double vunit = getHeight() / Math.abs(yMin - yMax);
         final double step = (Math.abs(xMin) + Math.abs(xMax)) / getWidth();
 
         double y3, x3 = (x1 + x2) / 2;
 
         try {
-            y3 = translateY(fc.calculate(xMin + step * x3).toDouble() * vunit);
+            y3 = translateY(fc.calculate(xMin + step * x3).toDouble());
         } catch (ArithmeticException e) {
             return;
         }
@@ -254,8 +217,6 @@ public class Graph extends JPanel {
         g.translate(0, H / 2);
         drawAxes(g);
 
-        final double vunit = H / Math.abs(yMin - yMax);
-
         final double step = (Math.abs(xMin) + Math.abs(xMax)) / W;
 
         g.setStroke(new BasicStroke(1.5f));
@@ -273,7 +234,7 @@ public class Graph extends JPanel {
                 point = xMin + step * i;
 
                 try {
-                    y = translateY(fc.calculate(point).toDouble() * vunit);
+                    y = translateY(fc.calculate(point).toDouble());
                 } catch (ArithmeticException e) {
                     lastY = NaN;
                     continue;
@@ -348,6 +309,7 @@ public class Graph extends JPanel {
      * @return L'ordonnée traduite
      */
     private double translateY(double y) {
-        return -y;
+        final double vunit = getHeight() / Math.abs(yMin - yMax);
+        return (-y + (yMax + yMin) / 2) * vunit;
     }
 }
