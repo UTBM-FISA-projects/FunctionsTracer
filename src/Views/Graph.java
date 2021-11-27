@@ -192,6 +192,14 @@ public class Graph extends JPanel {
     public void paintComponent(final Graphics G) {
         super.paintComponent(G);
         Graphics2D g = (Graphics2D) G;
+
+        if (p.yReverse() || p.xReverse()) {
+            g.setFont(new Font(g.getFont().getName(), g.getFont().getStyle(), 20));
+            g.setColor(Color.RED);
+            g.drawString("Définition du graphique incorrecte !", 10, 30);
+            return;
+        }
+
         g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
 
         p.update();
@@ -283,7 +291,7 @@ public class Graph extends JPanel {
      * @return L'ordonnée traduite
      */
     private double translateY(double y) {
-        return ((p.yReverse() ? 1 : -1) * y + (p.yMax + p.yMin) / 2) * p.pixelPerYUnit;
+        return (-y + (p.yMax + p.yMin) / 2) * p.pixelPerYUnit;
     }
 
     private class GraphParameters {
@@ -339,6 +347,10 @@ public class Graph extends JPanel {
 
         public boolean yReverse() {
             return yMax < yMin;
+        }
+
+        public boolean xReverse() {
+            return xMax < xMin;
         }
     }
 }
