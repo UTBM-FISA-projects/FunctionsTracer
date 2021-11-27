@@ -66,7 +66,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(scrollPane, BorderLayout.LINE_START);
 
         this.setContentPane(mainPanel);
-        setJMenuBar(new MenuBar(expressionList));
+        setJMenuBar(new MenuBar(expressionList, graph));
     }
 
 }

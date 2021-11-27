@@ -15,7 +15,7 @@ import java.io.IOException;
  *
  * @author Kilian GOËTZ
  */
-public class FileMenuExport extends JMenuItem implements ActionListener {
+public class MenuItemExport extends JMenuItem implements ActionListener {
 
     private final ExpressionList expressionList;
 
@@ -25,7 +25,7 @@ public class FileMenuExport extends JMenuItem implements ActionListener {
      * @param expressionList Liste d'expression sur laquelle interagir
      * @author Kilian GOËTZ
      */
-    public FileMenuExport(ExpressionList expressionList) {
+    public MenuItemExport(ExpressionList expressionList) {
         super("Exporter");
         this.expressionList = expressionList;
         addActionListener(this);
