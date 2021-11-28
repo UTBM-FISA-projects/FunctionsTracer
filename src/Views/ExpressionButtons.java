@@ -15,7 +15,6 @@ public class ExpressionButtons extends JButton {
      *
      * @param tooltipText Texte à afficher au survol de la souris
      * @param iconPath    Chemin de l'icon
-     * @author Kilian
      */
     public ExpressionButtons(String tooltipText, URL iconPath) {
         this(tooltipText, iconPath, 20, 20);

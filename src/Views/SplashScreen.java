@@ -13,8 +13,6 @@ public class SplashScreen extends JFrame {
     /**
      * Créer une fenêtre de chargement avec une animation (gif) fermer automatiquement à la fin de celui-ci
      * l'animation peut-être passer en appuyant sur entrée
-     *
-     * @author Kilian GOËTZ
      */
     public SplashScreen() {
         ImageIcon icon = new ImageIcon(getClass().getResource("functionTracer.gif"));
@@ -38,7 +36,6 @@ public class SplashScreen extends JFrame {
      * Permet de stopper l'animation en appuyant sur entrée
      *
      * @param e inutilisé
-     * @author Kilian GOËTZ
      */
     @Override
     protected void processKeyEvent(KeyEvent e) {

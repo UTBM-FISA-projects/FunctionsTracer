@@ -12,8 +12,6 @@ public class TextField extends JTextField {
 
     /**
      * Créer le champ texte pour rentrer une expression
-     *
-     * @author Kilian GOËTZ
      */
     public TextField() {
         setFont(new Font("Latex", Font.PLAIN, 20));
