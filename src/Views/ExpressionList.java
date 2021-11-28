@@ -94,7 +94,8 @@ public class ExpressionList extends JPanel implements ActionListener {
          */
         @Override
         public void actionPerformed(final ActionEvent actionEvent) {
-            if (element != null && graph.removeExpression(element.hashCode())) {
+            if (element != null && getComponentCount() > 2) {
+                graph.removeExpression(element.hashCode());
                 remove(element);
                 revalidate();
             }
