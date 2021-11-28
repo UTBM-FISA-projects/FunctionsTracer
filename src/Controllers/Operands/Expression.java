@@ -4,6 +4,8 @@ import Controllers.Operators.Functions.Function;
 import Controllers.Operators.Operator;
 import Controllers.Operators.Properties.Arity;
 
+import java.util.Collections;
+
 /**
  * Représente une expression mathématique sous forme d'arbre.
  *
@@ -133,14 +135,15 @@ public class Expression extends Operand {
         System.out.printf("\033[%d;%dH%s", y, x, operator);
 
         final int depth = depth() * 2;
+        final String branch = String.join("", Collections.nCopies(depth, "-"));
 
         if (firstOperand != null) {
-            System.out.printf("\033[%d;%dH/%s/", y + 1, x - depth - 2, "-".repeat(depth));
+            System.out.printf("\033[%d;%dH/%s/", y + 1, x - depth - 2, branch);
             firstOperand.debug(x - depth - 3, y + 2);
         }
 
         if (secondOperand != null) {
-            System.out.printf("\033[%d;%dH\\%s\\", y + 1, x + 1, "-".repeat(depth));
+            System.out.printf("\033[%d;%dH\\%s\\", y + 1, x + 1, branch);
             secondOperand.debug(x + depth + 3, y + 2);
         }
 

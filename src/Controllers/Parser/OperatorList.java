@@ -3,7 +3,7 @@ package Controllers.Parser;
 import Controllers.Operators.*;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Représente une liste d'opérateurs avec des opérations usuelles.
@@ -22,7 +22,7 @@ public class OperatorList {
      * Créé une liste des opérateurs par défaut.
      */
     public OperatorList() {
-        this(new ArrayList<>(List.of(
+        this(new ArrayList<>(Arrays.asList(
             new Exponentiation(),
 
             new Multiplication(),

@@ -28,7 +28,7 @@ public class Parser {
     /**
      * Liste des fonctions disponibles pour le parser.
      */
-    private final OperatorList functions = new OperatorList(new ArrayList<>(List.of(
+    private final OperatorList functions = new OperatorList(new ArrayList<>(Arrays.asList(
         new Absolute(),
         new CommonLogarithm(),
         new Cosine(),
@@ -116,7 +116,7 @@ public class Parser {
         tokenize(
             expression
                 .toLowerCase()
-                .replace("\s", "")
+                .replace(" ", "")
         );
     }
 
