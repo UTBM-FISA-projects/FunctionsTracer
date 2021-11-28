@@ -2,7 +2,11 @@
 
 Traceur graphique de fonction.
 
----
+# Compilation
+
+Le projet peut être compilé et exécuté avec java 1.8 minimum.  
+Java 1.8 est la version installée sur la grande majorité des postes, c'est aussi la version par défaut proposée au
+téléchargement sur le site d'oracle.
 
 ## Résultat idéal
 
